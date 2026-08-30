@@ -1,0 +1,380 @@
+/* Import Tailwind CSS for modern styling */
+@import 'tailwindcss';
+
+@source '../views';
+
+/* Custom admin theme matching frontend */
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Admin Layout Styles */
+body {
+    font-family: var(--font-sans);
+    background-color: #FDFDFC;
+}
+
+.dark\:mode body {
+    background-color: #161615;
+}
+
+/* Admin wrapper */
+.admin-wrapper {
+    min-height: 100vh;
+    display: flex;
+}
+
+/* Sidebar Styles */
+.admin-sidebar {
+    width: 280px;
+    background-color: #1b1b18;
+    color: #EDEDEC;
+    padding: 2rem 1rem;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.sidebar-brand {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-header {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #A1A09A;
+    margin: 1.5rem 1rem 0.5rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: #EDEDEC;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    margin: 0.25rem 0;
+    transition: all 0.15s ease;
+}
+
+.sidebar-menu li a:hover {
+    background-color: #3E3E3A;
+    color: #fff;
+}
+
+.sidebar-menu li a.active {
+    background-color: #F8B803;
+    color: #1b1b18;
+}
+
+.sidebar-menu li a i {
+    margin-right: 0.75rem;
+    width: 1.25rem;
+}
+
+/* Main Content Area */
+.admin-main-content {
+    margin-left: 280px;
+    flex: 1;
+    padding: 2rem;
+    width: calc(100% - 280px);
+}
+
+/* Top Navigation Bar */
+.admin-topbar {
+    background-color: #fff;
+    border-bottom: 1px solid #e3e3e0;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: -2rem -2rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.topbar-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1b1b18;
+}
+
+.topbar-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.topbar-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e3e3e0;
+    background: white;
+    color: #1b1b18;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.topbar-btn:hover {
+    border-color: #1b1b18;
+    background-color: #1b1b18;
+    color: white;
+}
+
+/* Card Styles */
+.stat-card {
+    background: white;
+    border: 1px solid #e3e3e0;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.15s ease;
+}
+
+.stat-card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    border-color: #1b1b18;
+}
+
+.stat-card-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.stat-card-icon.bg-info {
+    background-color: #3B82F6;
+    color: white;
+}
+
+.stat-card-icon.bg-primary {
+    background-color: #6366F1;
+    color: white;
+}
+
+.stat-card-icon.bg-success {
+    background-color: #10B981;
+    color: white;
+}
+
+.stat-card-icon.bg-warning {
+    background-color: #F8B803;
+    color: #1b1b18;
+}
+
+.stat-card-icon.bg-danger {
+    background-color: #F53003;
+    color: white;
+}
+
+.stat-card-title {
+    font-size: 0.875rem;
+    color: #706f6c;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card-value {
+    font-size: 1.875rem;
+    font-weight: 600;
+    color: #1b1b18;
+}
+
+/* Table Styles */
+.data-table-card {
+    background: white;
+    border: 1px solid #e3e3e0;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+.data-table-card .card-header {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #1b1b18;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.data-table thead {
+    background-color: #f9f9f9;
+}
+
+.data-table th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1b1b18;
+    border-bottom: 2px solid #e3e3e0;
+}
+
+.data-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e3e3e0;
+    color: #1b1b18;
+}
+
+.data-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Badge Styles */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.badge-warning {
+    background-color: #fff2f2;
+    color: #F8B803;
+}
+
+.badge-info {
+    background-color: #EFF6FF;
+    color: #3B82F6;
+}
+
+.badge-success {
+    background-color: #F0FDF4;
+    color: #10B981;
+}
+
+.badge-danger {
+    background-color: #FEF2F2;
+    color: #F53003;
+}
+
+/* Button Styles */
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+}
+
+.btn-primary {
+    background-color: #1b1b18;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #000;
+}
+
+.btn-dark {
+    background-color: #3E3E3A;
+    color: white;
+}
+
+.btn-dark:hover {
+    background-color: #1b1b18;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .admin-sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .admin-main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #161615;
+        color: #EDEDEC;
+    }
+    
+    .admin-topbar {
+        background-color: #1b1b18;
+        border-color: #3E3E3A;
+    }
+    
+    .topbar-title {
+        color: #EDEDEC;
+    }
+    
+    .stat-card,
+    .data-table-card {
+        background-color: #1b1b18;
+        border-color: #3E3E3A;
+    }
+    
+    .stat-card-title {
+        color: #A1A09A;
+    }
+    
+    .stat-card-value,
+    .data-table-card .card-header,
+    .data-table th,
+    .data-table td {
+        color: #EDEDEC;
+    }
+    
+    .data-table thead {
+        background-color: #0a0a0a;
+    }
+    
+    .data-table th {
+        border-color: #3E3E3A;
+    }
+    
+    .data-table td {
+        border-color: #3E3E3A;
+    }
+    
+    .data-table tbody tr:hover {
+        background-color: #3E3E3A;
+    }
+    
+    .topbar-btn {
+        background-color: #1b1b18;
+        border-color: #3E3E3A;
+        color: #EDEDEC;
+    }
+    
+    .topbar-btn:hover {
+        background-color: #3E3E3A;
+        border-color: #EDEDEC;
+    }
+}
