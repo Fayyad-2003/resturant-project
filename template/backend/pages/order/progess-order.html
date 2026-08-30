@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>food park | progress order list</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="backend/assets/modules/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="backend/assets/modules/fontawesome/css/all.min.css">
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="backend/assets/css/nprogress.min.css">
+    <link rel="stylesheet" href="backend/assets/modules/izitoast/css/iziToast.min.css">
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="backend/assets/css/style.css">
+    <link rel="stylesheet" href="backend/assets/css/components.css">
+    <link rel="stylesheet" href="backend/assets/modules/datatables/datatables.min.css">
+    <link rel="stylesheet"
+        href="backend/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+
+</head>
+
+<body>
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+              <div class="navbar-bg"></div>
+  <nav class="navbar navbar-expand-lg main-navbar">
+      <form class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+              <li><a class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+              <li><a class="nav-link nav-link-lg d-sm-none"><i
+                          class="fas fa-search"></i></a></li>
+          </ul>
+          <div class="search-element">
+              <a target="_blank"
+                  class="btn text-warning rounded-2 bg-dark py-2 px-3"><i class="fas fa-globe"></i> &nbsp;&nbsp;visit
+                  store</a>
+          </div>
+      </form>
+      <ul class="navbar-nav navbar-right">
+          <li class="dropdown dropdown-list-toggle"><a
+                  class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
+              <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                  <div class="dropdown-header">Messages
+                      <div class="float-right">
+                          <a>Mark All As Read</a>
+                      </div>
+                  </div>
+                  <div class="dropdown-list-content dropdown-list-message">
+                      <a class="dropdown-item dropdown-item-unread">
+                          <div class="dropdown-item-avatar">
+                              <img alt="image" src="backend/assets/img/avatar/avatar-1.png"
+                                  class="rounded-circle">
+                              <div class="is-online"></div>
+                          </div>
+                          <div class="dropdown-item-desc">
+                              <b>Kusnaedi</b>
+                              <p>Hello, Bro!</p>
+                              <div class="time">10 Hours Ago</div>
+                          </div>
+                      </a>
+                  </div>
+                  <div class="dropdown-footer text-center">
+                      <a>View All <i class="fas fa-chevron-right"></i></a>
+                  </div>
+              </div>
+          </li>
+          <li class="dropdown dropdown-list-toggle"><a
+                  class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
+              <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                  <div class="dropdown-header">Notifications
+                      <div class="float-right">
+                          <a>Mark All As Read</a>
+                      </div>
+                  </div>
+                  
+                  <div class="dropdown-list-content dropdown-list-icons notification_holder" id="notification_holder">
+                      
+                          <a class="dropdown-item dropdown-item-unread">
+                              <div class="dropdown-item-icon bg-primary text-white">
+                                  <i class="fas fa-code"></i>
+                              </div>
+                              <div class="dropdown-item-desc">
+                                  1 - Sample
+                                  <div class="time text-primary">Sample</div>
+                              </div>
+                          </a>
+                      
+                  </div>
+                  <div class="dropdown-footer text-center">
+                      <a>View All <i class="fas fa-chevron-right"></i></a>
+                  </div>
+              </div>
+          </li>
+          <li class="dropdown"><a
+                  class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                  <img alt="image"
+                      src="Admin User"
+                      class="rounded-circle mr-1">
+                  <div class="d-sm-none d-lg-inline-block">Hi, Admin User
+                  </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                  <div class="dropdown-title">Admin User</div>
+                  <a class="dropdown-item has-icon">
+                      <i class="far fa-user"></i> Profile
+                  </a>
+                  <a class="dropdown-item has-icon">
+                      <i class="fas fa-key"></i> Password
+                  </a>
+                  <a class="dropdown-item has-icon">
+                      <i class="fas fa-cog"></i> Settings
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <form method="post">
+
+                      <a
+                          class="dropdown-item has-icon text-danger">
+                          <i class="fas fa-sign-out-alt"></i> Logout
+                      </a>
+                  </form>
+              </div>
+          </li>
+      </ul>
+  </nav>
+
+              <div class="main-sidebar sidebar-style-2">
+      <aside id="sidebar-wrapper">
+          <div class="sidebar-brand">
+              <a>FOOD <span class=" text-warning">PARK</span></a>
+          </div>
+          <div class="sidebar-brand sidebar-brand-sm">
+              <a>St</a>
+          </div>
+          <ul class="sidebar-menu">
+              <li class="menu-header">Dashboard</li>
+              <li class="">
+                  <a class="nav-link">
+                      <i class="fas fa-fire"></i><span>Dashboard</span>
+                  </a>
+              </li>
+              <li class="">
+                  <a class="nav-link">
+                      <i class="fas fa-fire"></i><span>Live Chat</span>
+                  </a>
+              </li>
+
+              <li class="menu-header">Starter</li>
+              <li class="dropdown">
+                  <a class="nav-link has-dropdown"><i class="fas fa-columns"></i>
+                      <span>Manage Slider</span></a>
+                  <ul class="dropdown-menu">
+                      <li><a class="nav-link text-capitalize">List Slider</a>
+                      </li>
+                      <li><a class="nav-link text-capitalize">Add Slider</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="dropdown">
+                  <a class="nav-link has-dropdown"><i class="fas fa-columns"></i>
+                      <span>Manage Services</span></a>
+                  <ul class="dropdown-menu">
+                      <li><a class="nav-link text-capitalize">List
+                              Services</a>
+                      </li>
+                      <li><a class="nav-link text-capitalize">Add
+                              Services</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="dropdown">
+                  <a class="nav-link has-dropdown"><i class="fas fa-columns"></i>
+                      <span>Manage Team/Chef</span></a>
+                  <ul class="dropdown-menu">
+                      <li>
+                          <a class="nav-link text-capitalize">List
+                              Team/Chef</a>
+                      </li>
+                      <li>
+                          <a class="nav-link text-capitalize">Add
+                              Team/Chef</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="dropdown">
+                  <a class="nav-link has-dropdown"><i class="fas fa-columns"></i>
+                      <span>Manage Platform</span></a>
+                  <ul class="dropdown-menu">
+                      <li>
+                          <a class="nav-link text-capitalize">List
+                              Platform</a>
+                      </li>
+                      <li>
+                          <a class="nav-link text-capitalize">Add
+                              Platform</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="dropdown">
+                  <a class="nav-link has-dropdown"><i class="fas fa-columns"></i>
+                      <span>Counter Data</span></a>
+                  <ul class="dropdown-menu">
+                      <li>
+                          <a class="nav-link text-capitalize">List
+                              Counter</a>
+                      </li>
+                      <li>
+                          <a class="nav-link text-capitalize">Add
+                              Counter</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="dropdown">
+                  <a class="nav-link has-dropdown"><i class="fas fa-columns"></i>
+                      <span>Testimonial</span></a>
+                  <ul class="dropdown-menu">
+                      <li>
+                          <a class="nav-link text-capitalize">List
+                              Testimonial</a>
+                      </li>
+                      <li>
+                          <a class="nav-link text-capitalize">Add
+                              Testimonial</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="dropdown">
+                  <a class="nav-link has-dropdown"><i class="fas fa-columns"></i>
+                      <span>Advertisement</span></a>
+                  <ul class="dropdown-menu">
+                      <li>
+                          <a class="nav-link text-capitalize">List
+                              Advertisement</a>
+                      </li>
+                      <li>
+                          <a class="nav-link text-capitalize">Add
+                              Advertisement</a>
+                      </li>
+                  </ul>
+              </li>
+
+              <li class="menu-header">Resturent</li>
+              <li class="dropdown">
+                  <a class="nav-link has-dropdown"><i class="fas fa-columns"></i>
+                      <span>Resturent Coupon</span></a>
+                  <ul class="dropdown-menu">
+                      <li><a class="nav-link text-capitalize">List
+                              Coupon</a>
+                      </li>
+                      <li><a class="nav-link text-capitalize">Add
+                              Coupon</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="dropdown">
+                  <a class="nav-link has-dropdown"><i
+                          class="fas fa-columns"></i>
+                      <span>Resturent Category</span></a>
+                  <ul class="dropdown-menu">
+                      <li><a class="nav-link text-capitalize">List
+                              Category</a>
+                      </li>
+                      <li><a class="nav-link text-capitalize">Add
+                              Category</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="dropdown">
+                  <a class="nav-link has-dropdown"><i
+                          class="fas fa-columns"></i>
+                      <span>Manage Product</span></a>
+                  <ul class="dropdown-menu">
+                      <li><a class="nav-link text-capitalize">Product
+                              List</a>
+                      </li>
+                      <li><a class="nav-link text-capitalize">Product
+                              Add</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="dropdown">
+                  <a class="nav-link has-dropdown"><i
+                          class="fas fa-columns"></i>
+                      <span>Manage Orders</span></a>
+                  <ul class="dropdown-menu">
+                      <li>
+                          <a class="nav-link text-capitalize">All Orders</a>
+                      </li>
+                      <li>
+                          <a class="nav-link text-capitalize">Pending
+                              Orders</a>
+                      </li>
+                      <li>
+                          <a class="nav-link text-capitalize">Processing
+                              Orders</a>
+                      </li>
+                      <li>
+                          <a class="nav-link text-capitalize">Delivered
+                              Orders</a>
+                      <li>
+                          <a class="nav-link text-capitalize">Cancel
+                              Orders</a>
+                      </li>
+
+              </li>
+          </ul>
+          </li>
+          <li class="menu-header">Blog</li>
+          <li class="dropdown">
+              <a class="nav-link has-dropdown"><i class="fas fa-columns"></i>
+                  <span>Blog Category</span></a>
+              <ul class="dropdown-menu">
+                  <li><a class="nav-link text-capitalize">List
+                          Category</a>
+                  </li>
+                  <li>
+                      <a class="nav-link text-capitalize">Add
+                          Category</a>
+                  </li>
+              </ul>
+          </li>
+          <li class="dropdown">
+              <a class="nav-link has-dropdown"><i class="fas fa-columns"></i>
+                  <span>Blog Post</span></a>
+              <ul class="dropdown-menu">
+                  <li><a class="nav-link text-capitalize">List
+                          Blog-Post</a>
+                  </li>
+                  <li>
+                      <a class="nav-link text-capitalize">Add
+                          Blog-Post</a>
+                  </li>
+              </ul>
+          </li>
+          <li class="dropdown">
+              <a class="nav-link has-dropdown"><i class="fas fa-columns"></i>
+                  <span>Blog Tag</span></a>
+              <ul class="dropdown-menu">
+                  <li><a class="nav-link text-capitalize">List
+                          Blog-Tag</a>
+                  </li>
+                  <li>
+                      <a class="nav-link text-capitalize">Add
+                          Blog-Tag</a>
+                  </li>
+              </ul>
+          </li>
+          <li class="menu-header">settings</li>
+          <li class="">
+              <a class="nav-link">
+                  <i class="fas fa-fire"></i><span>Settings</span>
+              </a>
+          </li>
+          </ul>
+      </aside>
+  </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                
+    <section class="section">
+        <div class="section-header">
+            <h1 class="text-capitalize">order</h1>
+        </div>
+        <div class="section-body">
+            <div class="row mt-sm-4">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <div class="card  card-danger">
+                        <div class="card-header d-flex items-center justify-content-between">
+                            <h4 class=" text-capitalize ">list of orders</h4>
+                            
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped w-full" id="table-1" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Customer E-mail</th>
+                                            <th>Order No</th>
+                                            <th>Quantity</th>
+                                            <th>Total Cost</th>
+                                            <th>Status</th>
+                                            <th>Time</th>
+                                            <th style="width: 15%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                            <tr>
+                                                <td>Sample</td>
+                                                <td>user.com</td>
+                                                <td>ORD-10001</td>
+                                                <td>
+                                                    Sample description text
+                                                </td>
+                                                <td>Sample</td>
+                                                <td>
+                                                    
+                                                        <div class="badge badge-warning">pending</div>
+                                                    
+                                                        <div class="badge badge-info">Processing</div>
+                                                    
+                                                        <div class="badge badge-success">Delivired</div>
+                                                    
+                                                        <div class="badge badge-danger">cancel</div>
+                                                    
+                                                </td>
+
+                                                <td>
+                                                    <span>Sample</span>
+                                                    <hr class=" my-0">
+                                                    <span>Sample</span>
+                                                </td>
+
+                                                <td>
+
+                                                    <a
+                                                        class="btn btn-primary"><i class=" fas fa-eye"></i></a>
+                                                    <a class="btn btn-dark"><i class=" fas fa-print"></i></a>
+                                                </td>
+                                            </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+            </div>
+            <footer class="main-footer">
+    <div class="footer-left">
+        Copyright &copy; Sample <div class="bullet"></div> Design By <a>Mehedi
+            Hassan Jibon</a>
+    </div>
+    <div class="footer-right">
+
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- General JS Scripts -->
+
+    <!-- JS Libraies -->
+
+    <!-- Template JS File -->
+
+</body>
+
+</html>
