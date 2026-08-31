@@ -1,0 +1,13 @@
+@extends('frontend.layouts.master') @section('content')
+    @include('frontend.pages.home.components.slider')
+    @include('frontend.pages.home.components.why-choose-us')
+    @include('frontend.pages.home.components.offer-item')
+    @include('frontend.pages.home.components.cart-popup')
+    @include('frontend.pages.home.components.menu-item')
+    @include('frontend.pages.home.components.ad-slider')
+    @include('frontend.pages.home.components.our-team')
+    @include('frontend.pages.home.components.app-download')
+    @include('frontend.pages.home.components.testimonial')
+    @include('frontend.pages.home.components.counter')
+    @include('frontend.pages.home.components.blog')
+@endsection
