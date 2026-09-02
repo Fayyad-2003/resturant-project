@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="fp__login_imput fp__login_check_area">
-                                            <a>Forgot Password ?</a>
+                                            <a href="{{ route('password.request') }}">Forgot Password ?</a>
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
