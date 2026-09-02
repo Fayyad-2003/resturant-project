@@ -9,9 +9,16 @@
     <!-- Vite Assets -->
     @vite(['resources/css/admin.css', 'resources/js/admin.js'])
 
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="{{ asset('admin/assets/modules/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/modules/fontawesome/css/all.min.css') }}">
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/nprogress.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/modules/izitoast/css/iziToast.min.css') }}">
 
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{{ asset('admin') }}/assets/css/style.css">
+    <link rel="stylesheet" href="{{ asset('admin') }}/assets/css/components.css">
 </head>
 
 <body class="min-h-screen bg-[#FDFDFC] dark:bg-[#161615]">
@@ -33,13 +40,33 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('admin/assets/modules/datatables/datatables.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}">
-    </script>
-    <script src="{{ asset('admin/assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/js/page/modules-datatables.js') }}"></script>
+    <!-- General JS Scripts -->
+    <script src="{{ asset('admin') }}/assets/modules/jquery.min.js"></script>
+    <script src="{{ asset('admin') }}/assets/modules/popper.js"></script>
+    <script src="{{ asset('admin') }}/assets/modules/tooltip.js"></script>
+    <script src="{{ asset('admin') }}/assets/modules/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ asset('admin') }}/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="{{ asset('admin') }}/assets/js/stisla.js"></script>
 
+    <!-- JS Libraies -->
+    <script src="{{ asset('admin/assets/js/nprogress.min.js') }}"></script>
+    <script src="{{ asset('admin/assets/modules/izitoast/js/iziToast.min.js') }}"></script>
+    <script src="{{ asset('admin/assets/js/page/modules-toastr.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+    <!-- Template JS File -->
+    <script src="{{ asset('admin') }}/assets/js/scripts.js"></script>
+    <script src="{{ asset('admin') }}/assets/js/custom.js"></script>
+
+    <script>
+        toastr.options.progressBar = true;
+
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                toastr.error("{{ $error }}")
+            @endforeach
+        @endif
+    </script>
 </body>
 
 </html>
