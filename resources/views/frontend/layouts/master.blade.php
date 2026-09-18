@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
 
     <!-- <link rel="stylesheet" href="{{ asset('frontend/css/rtl.css') }}"> -->
+
+    @stack('front_style')
 </head>
 
 <body>
@@ -133,6 +135,8 @@
     {{-- Include Frontend Layout Components --}}
     @include('frontend.layouts.sidebar-minicart')
     @include('frontend.layouts.global')
+
+    @stack('front_script')
 </body>
 
 </html>
