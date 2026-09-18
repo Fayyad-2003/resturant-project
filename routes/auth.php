@@ -13,7 +13,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('admin/login', [AdminAuthController::class, 'index'])->name('admin.login');
-Route::post('admin/login', [AdminAuthController::class, 'store'])
+Route::post('admin/login', [AdminAuthController::class, 'store']);
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
