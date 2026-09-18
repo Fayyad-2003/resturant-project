@@ -43,8 +43,9 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-12 col-lg-7">
+                    {{-- Profile Information Form --}}
                     <div class="card card-primary">
-                        <form enctype="multipart/form-data">
+                        <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -53,53 +54,34 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6 col-12">
+                                    <div class="col-md-12 col-12">
                                         <div class="form-group">
-                                            <label>First Name</label>
-                                            <input type="text" class="form-control" name="first_name"
-                                                value="{{ old('first_name', auth()->user()->first_name) }}" required>
+                                            <label>User Name</label>
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                                name="name" value="{{ old('name', auth()->user()->name) }}" required>
+                                            @error('name')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Last Name</label>
-                                            <input type="text" class="form-control" name="last_name"
-                                                value="{{ old('last_name', auth()->user()->last_name) }}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-12">
+                                    <div class="col-md-12 col-12">
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input type="email" class="form-control" name="email"
-                                                value="{{ old('email', auth()->user()->email) }}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Phone</label>
-                                            <input type="text" class="form-control" name="phone"
-                                                value="{{ old('phone', auth()->user()->phone) }}">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Password</label>
-                                            <input type="text" class="form-control" name="password"
-                                                value="{{ old('password') }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label>Confirm Password</label>
-                                            <input type="text" class="form-control" name="confirm-password"
-                                                value="{{ old('confirm-password') }}">
+                                            <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                                name="email" value="{{ old('email', auth()->user()->email) }}" required>
+                                            @error('email')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-12">
                                         <div class="form-group">
                                             <label>Avatar</label>
-                                            <input type="file" class="form-control" name="avatar" accept="image/*">
+                                            <input type="file" class="form-control @error('avatar') is-invalid @enderror"
+                                                name="avatar" accept="image/*">
+                                            @error('avatar')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                             @if (auth()->user()->avatar)
                                                 <small class="text-muted">Current avatar:
                                                     <img src="{{ auth()->user()->avatar }}" alt="avatar"
@@ -112,11 +94,65 @@
                             </div>
                             <div class="card-footer text-left">
                                 <button type="submit" class="btn btn-icon icon-left btn-primary">
-                                    <i class="far fa-check-circle"></i> Update
+                                    <i class="far fa-check-circle"></i> Update Profile
                                 </button>
                                 <a href="{{ route('admin.dashboard') }}" class="btn btn-icon icon-left btn-danger">
                                     <i class="fas fa-ban"></i> Cancel
                                 </a>
+                            </div>
+                        </form>
+                    </div>
+
+                    {{-- Password Update Form --}}
+                    <div class="card card-primary">
+                        <form action="{{ route('admin.profile.password.update') }}" method="POST">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="card-header">
+                                <h4 class="text-capitalize">Update Password</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-12">
+                                        <div class="form-group">
+                                            <label>Current Password</label>
+                                            <input type="password"
+                                                class="form-control @error('current_password') is-invalid @enderror"
+                                                name="current_password" required>
+                                            @error('current_password')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-12">
+                                        <div class="form-group">
+                                            <label>New Password</label>
+                                            <input type="password"
+                                                class="form-control @error('password') is-invalid @enderror" name="password"
+                                                required>
+                                            @error('password')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-12">
+                                        <div class="form-group">
+                                            <label>Confirm New Password</label>
+                                            <input type="password"
+                                                class="form-control @error('password_confirmation') is-invalid @enderror"
+                                                name="password_confirmation" required>
+                                            @error('password_confirmation')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-left">
+                                <button type="submit" class="btn btn-icon icon-left btn-primary">
+                                    <i class="fas fa-lock"></i> Update Password
+                                </button>
                             </div>
                         </form>
                     </div>
