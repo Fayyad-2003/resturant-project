@@ -37,6 +37,49 @@
         .dash_info_btn:hover {
             opacity: 0.8;
         }
+
+        /* Change Password Form Styling */
+        .fp__change_password .comment_input label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            margin-top: 15px;
+        }
+
+        .fp__change_password .comment_input label:first-of-type {
+            margin-top: 0;
+        }
+
+        .fp__change_password .comment_input input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .fp__change_password .comment_input input[type="password"]:focus {
+            border-color: #fe6100;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(254, 97, 0, 0.1);
+        }
+
+        .fp__change_password .common_btn {
+            margin-top: 20px;
+            padding: 12px 40px;
+        }
+
+        .fp__change_password h3 {
+            margin-bottom: 25px;
+            text-transform: capitalize;
+        }
+
+        .fp__change_password .row {
+            margin-top: 10px;
+        }
     </style>
 @endpush
 
@@ -67,7 +110,7 @@
                         <div class="fp__dashboard_menu">
                             <div class="dasboard_header">
                                 <div class="dasboard_header_img">
-                                    <img src="{{ asset('frontend/images/dashboard_user.jpg') }}" alt="user"
+                                    <img src="{{ auth()->user()->avatar }}" alt="user"
                                         class="img-fluid w-100 photo_preview" id="photo_preview">
                                     <form action="#" method="post" class=" w-full" style="width: 100%;"
                                         enctype="multipart/form-data">
@@ -82,8 +125,6 @@
                                     </form>
                                 </div>
                                 <h2>{{ auth()->user()->name }}</h2>
-
-                                <a href="#" class="mt-2 common_btn"> Live Chat </a>
                             </div>
                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
                                 aria-orientation="vertical">
@@ -250,28 +291,34 @@
                                 <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
                                     aria-labelledby="v-pills-settings-tab">
                                     <div class="fp_dashboard_body fp__change_password">
+                                        <h3>Change Password</h3>
                                         <div class="fp__review_input">
-                                            <h3>change password</h3>
                                             <div class="comment_input pt-0">
-                                                <form method="POST" action="#">
+                                                <form method="POST" action="{{ route('profile.password.update') }}">
                                                     @csrf
                                                     @method('PUT')
-                                                    <input type="hidden" value="" name="id">
 
                                                     <div class="row">
-                                                        <div class="col-xl-6">
-                                                            <input type="password" name="password"
-                                                                placeholder="Current Password">
+                                                        <div class="col-xl-12 col-lg-12">
+                                                            <label for="current_password">Current Password</label>
+                                                            <input type="password" name="current_password"
+                                                                id="current_password" placeholder="Enter current password"
+                                                                required>
                                                         </div>
-                                                        <div class="col-xl-6">
-                                                            <input type="password" name="new_password"
-                                                                placeholder="New Password">
+                                                        <div class="col-xl-6 col-lg-6">
+                                                            <label for="password">New Password</label>
+                                                            <input type="password" name="password" id="password"
+                                                                placeholder="Enter new password" required>
+                                                        </div>
+                                                        <div class="col-xl-6 col-lg-6">
+                                                            <label for="password_confirmation">Confirm New Password</label>
+                                                            <input type="password" name="password_confirmation"
+                                                                id="password_confirmation"
+                                                                placeholder="Confirm new password" required>
                                                         </div>
                                                         <div class="col-xl-12">
-                                                            <input type="password" name="confirm_password"
-                                                                placeholder="Confirm Password">
-                                                            <button type="submit"
-                                                                class="common_btn mt_20">submit</button>
+                                                            <button type="submit" class="common_btn mt_20">Update
+                                                                Password</button>
                                                         </div>
                                                     </div>
                                                 </form>
