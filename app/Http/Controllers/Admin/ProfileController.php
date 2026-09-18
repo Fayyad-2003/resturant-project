@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProfileUpdateRequest;
 use App\Http\Requests\Admin\UpdatePasswordRequest;
+use App\Traits\FileUploadTrait;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,6 +15,8 @@ use Auth;
 class ProfileController extends Controller
 {
     //
+
+    use FileUploadTrait;
 
     function index(): View
     {
@@ -25,21 +28,11 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         // Handle avatar upload
-        if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $avatarName = time() . '_' . $avatar->getClientOriginalName();
-            $avatarPath = $avatar->storeAs('uploads/avatars', $avatarName, 'public');
-
-            // Delete old avatar if exists
-            if ($user->avatar && file_exists(public_path($user->avatar))) {
-                unlink(public_path($user->avatar));
-            }
-
-            $user->avatar = 'storage/' . $avatarPath;
-        }
+        $imagePath = $this->uploadImage($request, 'avatar');
 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->avatar = $imagePath;
         $user->save();
 
         toastr('Profile Updated Successfully', 'success');

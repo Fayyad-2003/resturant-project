@@ -129,6 +129,10 @@
             @endforeach
         @endif
     </script>
+
+    {{-- Include Frontend Layout Components --}}
+    @include('frontend.layouts.sidebar-minicart')
+    @include('frontend.layouts.global')
 </body>
 
 </html>
