@@ -20,7 +20,7 @@
 
         <li class="menu-header">Content</li>
         <li>
-            <a href="#">
+            <a href="{{ route('admin.sliders.index') }}">
                 <i class="fas fa-images"></i>
                 <span>Manage Slider</span>
             </a>
