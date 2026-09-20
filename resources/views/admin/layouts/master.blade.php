@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/modules/fontawesome/css/all.min.css') }}">
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/nprogress.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/assets/modules/izitoast/css/iziToast.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('admin') }}/assets/css/style.css">
@@ -34,16 +34,15 @@
     </div>
 
     <!-- General JS Scripts -->
-    <script src="{{ asset('admin') }}/assets/modules/jquery.min.js"></script>
-    <script src="{{ asset('admin') }}/assets/modules/popper.js"></script>
-    <script src="{{ asset('admin') }}/assets/modules/tooltip.js"></script>
-    <script src="{{ asset('admin') }}/assets/modules/bootstrap/js/bootstrap.min.js"></script>
-    <script src="{{ asset('admin') }}/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="{{ asset('admin/assets/modules/jquery.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="{{ asset('admin/assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
     <script src="{{ asset('admin') }}/assets/js/stisla.js"></script>
 
     <!-- JS Libraies -->
     <script src="{{ asset('admin/assets/js/nprogress.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/modules/izitoast/js/iziToast.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
     <script src="{{ asset('admin/assets/js/page/modules-toastr.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
@@ -52,13 +51,24 @@
     <script src="{{ asset('admin') }}/assets/js/custom.js"></script>
 
     <script>
-        toastr.options.progressBar = true;
-
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                toastr.error("{{ $error }}")
-            @endforeach
-        @endif
+        if (typeof toastr !== 'undefined') {
+            toastr.options.progressBar = true;
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    toastr.error("{{ $error }}");
+                @endforeach
+            @endif
+        } else if (typeof iziToast !== 'undefined') {
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    iziToast.error({
+                        title: 'Error',
+                        message: "{{ $error }}",
+                        position: 'topRight'
+                    });
+                @endforeach
+            @endif
+        }
     </script>
 
     @stack('scripts')

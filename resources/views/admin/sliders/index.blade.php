@@ -36,13 +36,16 @@
 
 @push('scripts')
     <script src="{{ asset('admin/assets/modules/datatables/datatables.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/modules/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+    {{ $dataTable->scripts() }}
 
     <script>
+        // Ensure processing indicator hides cleanly once table draws
+        $('#slider-table').on('draw.dt', function () {
+            $('#slider-table_processing').hide();
+        });
+
         // Delete item confirmation using SweetAlert (delegated for dynamically loaded datatable rows)
         $(document).ready(function () {
             $('body').on('click', '.delete_btn', function (e) {

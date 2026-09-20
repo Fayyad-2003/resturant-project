@@ -7,13 +7,25 @@
 
 "use strict";
 
-NProgress.start();
-NProgress.configure({
-    showSpinner: false,
-    trickleSpeed: 200,
-    speed: 500,
-});
-window.addEventListener("load", () => NProgress.done());
+if (typeof NProgress !== 'undefined') {
+    NProgress.configure({
+        showSpinner: false,
+        trickleSpeed: 200,
+        speed: 500,
+    });
+    if (document.readyState === 'complete') {
+        NProgress.done();
+    } else {
+        window.addEventListener("load", () => NProgress.done());
+    }
+
+    $(document).ajaxStart(function () {
+        NProgress.start();
+    });
+    $(document).ajaxStop(function () {
+        NProgress.done();
+    });
+}
 
 // dropify image preview plugin
 // $(".dropify").dropify({

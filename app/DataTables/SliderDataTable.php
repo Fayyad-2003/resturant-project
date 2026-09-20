@@ -23,10 +23,10 @@ class SliderDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'admin.sliders.action')
-            ->addColumn('image', function ($query) {
+            ->editColumn('image', function ($query) {
                 return '<img width="60" src="' . asset($query->image) . '" alt="' . e($query->title) . '" class="rounded" />';
             })
-            ->addColumn('status', function ($query) {
+            ->editColumn('status', function ($query) {
                 return $query->status
                     ? '<span class="badge badge-success">Active</span>'
                     : '<span class="badge badge-danger">Inactive</span>';
@@ -55,15 +55,7 @@ class SliderDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0, 'asc')
-            ->selectStyleSingle()
-            ->buttons([
-                Button::make('excel'),
-                Button::make('csv'),
-                Button::make('pdf'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload')
-            ]);
+            ->selectStyleSingle();
     }
 
     /**
