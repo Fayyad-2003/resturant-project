@@ -19,6 +19,8 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('admin') }}/assets/css/style.css">
     <link rel="stylesheet" href="{{ asset('admin') }}/assets/css/components.css">
+
+    @stack('styles')
 </head>
 
 <body class="min-h-screen bg-[#FDFDFC] dark:bg-[#161615]">
@@ -28,15 +30,6 @@
         <!-- Main Content -->
         <div class="admin-main-content">
             @yield('content')
-
-            <!-- Footer -->
-            <footer class="mt-16 pt-8 pb-4 border-t border-[#e3e3e0] dark:border-[#3E3E3A]">
-                <div class="flex justify-between items-center text-sm text-[#706f6c] dark:text-[#A1A09A]">
-                    <div>
-                        Copyright &copy; {{ date('Y') }} Food Park &bullet; Design By Mehedi Hassan Jibon
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
 

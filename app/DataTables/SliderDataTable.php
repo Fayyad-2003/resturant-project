@@ -22,7 +22,16 @@ class SliderDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'slider.action')
+            ->addColumn('action', 'admin.sliders.action')
+            ->addColumn('image', function ($query) {
+                return '<img width="60" src="' . asset($query->image) . '" alt="' . e($query->title) . '" class="rounded" />';
+            })
+            ->addColumn('status', function ($query) {
+                return $query->status
+                    ? '<span class="badge badge-success">Active</span>'
+                    : '<span class="badge badge-danger">Inactive</span>';
+            })
+            ->rawColumns(['action', 'image', 'status'])
             ->setRowId('id');
     }
 
@@ -42,19 +51,19 @@ class SliderDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('slider-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-            Button::make('csv'),
-            Button::make('pdf'),
-            Button::make('print'),
-            Button::make('reset'),
-            Button::make('reload')
-                    ]);
+            ->setTableId('slider-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->orderBy(0, 'asc')
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -63,15 +72,16 @@ class SliderDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id')->width(60),
+            Column::make('image')->width(100),
+            Column::make('title'),
+            Column::make('sub_title'),
+            Column::make('status')->width(100),
             Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+                ->exportable(false)
+                ->printable(false)
+                ->width(120)
+                ->addClass('text-center'),
         ];
     }
 
