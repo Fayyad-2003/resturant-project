@@ -9,8 +9,9 @@
         <title>All Slider List</title>
 
         <!-- Styles -->
-        <link rel="stylesheet" href="backend/assets/modules/datatables/datatables.min.css">
-        <link rel="stylesheet" href="backend/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="{{ asset('admin/assets/modules/datatables/datatables.min.css') }}">
+        <link rel="stylesheet"
+            href="{{ asset('admin/assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
     </head>
 
     <body>
