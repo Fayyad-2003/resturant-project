@@ -309,12 +309,37 @@
 
                 swal({
                     title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this file!",
+                    text: "Once deleted, you will not be able to recover this slider!",
                     icon: "warning",
-                    buttons: true,
+                    buttons: {
+                        cancel: {
+                            text: "Cancel",
+                            value: null,
+                            visible: true,
+                            className: "btn-secondary",
+                            closeModal: true,
+                        },
+                        confirm: {
+                            text: "Yes, delete it!",
+                            value: true,
+                            visible: true,
+                            className: "btn-danger",
+                            closeModal: true
+                        }
+                    },
                     dangerMode: true,
                 }).then((willDelete) => {
                     if (willDelete) {
+                        // Show loading state
+                        swal({
+                            title: "Deleting...",
+                            text: "Please wait while we delete the slider.",
+                            icon: "info",
+                            buttons: false,
+                            closeOnClickOutside: false,
+                            closeOnEsc: false,
+                        });
+
                         $.ajax({
                             type: 'DELETE',
                             url: deleteUrl,
@@ -322,18 +347,94 @@
                                 _token: "{{ csrf_token() }}"
                             },
                             success: function(response) {
-                                swal("Deleted!", "Slider has been deleted.", "success");
-                                $('#slider-table').DataTable().ajax.reload();
+                                if (response.status === 'success') {
+                                    swal({
+                                        title: "Deleted!",
+                                        text: response.message ||
+                                            "Slider has been deleted successfully.",
+                                        icon: "success",
+                                        button: "OK",
+                                    }).then(() => {
+                                        $('#slider-table').DataTable().ajax
+                                            .reload();
+                                    });
+                                } else {
+                                    swal("Error!", response.message ||
+                                        "Failed to delete slider.", "error");
+                                }
                             },
                             error: function(xhr, status, error) {
-                                swal("Error!", "Something went wrong.", "error");
+                                let errorMessage =
+                                    "Something went wrong while deleting the slider.";
+
+                                if (xhr.responseJSON && xhr.responseJSON.message) {
+                                    errorMessage = xhr.responseJSON.message;
+                                }
+
+                                swal("Error!", errorMessage, "error");
                             }
                         });
-                    } else {
-                        swal("Your file is safe!");
                     }
                 });
             });
         });
     </script>
+
+    <style>
+        /* SweetAlert Custom Styling */
+        .swal-button--confirm {
+            background-color: #F53003 !important;
+        }
+
+        .swal-button--confirm:hover {
+            background-color: #d42a03 !important;
+        }
+
+        .swal-button--cancel {
+            background-color: #3E3E3A !important;
+            color: #EDEDEC !important;
+        }
+
+        .swal-button--cancel:hover {
+            background-color: #1b1b18 !important;
+        }
+
+        .swal-modal {
+            border-radius: 0.75rem;
+        }
+
+        .swal-title {
+            color: #1b1b18;
+            font-weight: 700;
+        }
+
+        .swal-text {
+            color: #706f6c;
+        }
+
+        .swal-icon--warning {
+            border-color: #F8B803;
+        }
+
+        .swal-icon--warning__body,
+        .swal-icon--warning__dot {
+            background-color: #F8B803;
+        }
+
+        .swal-icon--success__ring {
+            border-color: #10B981;
+        }
+
+        .swal-icon--success__line {
+            background-color: #10B981;
+        }
+
+        .swal-icon--error {
+            border-color: #F53003;
+        }
+
+        .swal-icon--error__line {
+            background-color: #F53003;
+        }
+    </style>
 @endpush

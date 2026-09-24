@@ -49,6 +49,7 @@ class SliderController extends Controller
         $slider->status = $request->status;
         $slider->save();
 
+        toastr()->success('Slider created successfully!');
         return to_route('admin.sliders.index');
     }
 
@@ -87,6 +88,7 @@ class SliderController extends Controller
         $slider->status = $request->status;
         $slider->save();
 
+        toastr()->success('Slider updated successfully!');
         return to_route('admin.sliders.index');
     }
 
@@ -95,6 +97,26 @@ class SliderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $slider = Slider::findOrFail($id);
+
+            // Delete the image file if it exists
+            if ($slider->image && \File::exists(public_path($slider->image))) {
+                \File::delete(public_path($slider->image));
+            }
+
+            // Delete the slider record
+            $slider->delete();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Slider deleted successfully!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to delete slider. Please try again.'
+            ], 500);
+        }
     }
 }
