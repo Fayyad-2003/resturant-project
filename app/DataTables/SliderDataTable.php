@@ -22,16 +22,29 @@ class SliderDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'admin.sliders.action')
+            ->addColumn('action', function ($query) {
+                $edit = "<a href='" . route('admin.sliders.edit', $query->id) . "' class='btn btn-warning me-2' title='Edit Slider'>
+                    <i class='fas fa-edit'></i> edit
+                </a>";
+
+                $delete = "<a href='" . route('admin.sliders.destroy', $query->id) . "' class='btn btn-danger delete_btn' title='Delete Slider'>
+                    <i class='fas fa-trash'></i> delete
+                </a>";
+
+                return '<div class="d-flex gap-2 justify-content-center">' . $edit . $delete . '</div>';
+            })
             ->editColumn('image', function ($query) {
-                return '<img width="60" src="' . asset($query->image) . '" alt="' . e($query->title) . '" class="rounded" />';
+                return '<img width="80" height="50" src="' . asset($query->image) . '" alt="' . e($query->title) . '" class="rounded shadow-sm" style="object-fit: cover;" />';
             })
             ->editColumn('status', function ($query) {
                 return $query->status
-                    ? '<span class="badge badge-success">Active</span>'
-                    : '<span class="badge badge-danger">Inactive</span>';
+                    ? '<span class="badge badge-success px-3 py-2">Active</span>'
+                    : '<span class="badge badge-secondary px-3 py-2">Inactive</span>';
             })
-            ->rawColumns(['action', 'image', 'status'])
+            ->editColumn('title', function ($query) {
+                return '<strong>' . e($query->title) . '</strong>';
+            })
+            ->rawColumns(['action', 'image', 'status', 'title'])
             ->setRowId('id');
     }
 
@@ -72,7 +85,7 @@ class SliderDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(120)
+                ->width(150)
                 ->addClass('text-center'),
         ];
     }

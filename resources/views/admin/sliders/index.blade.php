@@ -108,6 +108,155 @@
             background-color: #e0a503;
             border-color: #e0a503;
         }
+
+        /* Enhanced Action Buttons */
+        .btn-sm {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn {
+            padding: 0.5rem 1.25rem;
+            font-size: 0.7rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            border: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn i {
+            font-size: 0.875rem;
+        }
+
+        .btn-warning {
+            font-weight: 600;
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(248, 184, 3, 0.4);
+        }
+
+        .btn-danger {
+            font-weight: 600;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(245, 48, 3, 0.4);
+        }
+
+        .d-flex.gap-2 {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        /* Enhanced Badge Styles */
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-success {
+            background-color: #10B981;
+            color: white;
+        }
+
+        .badge-secondary {
+            background-color: #6B7280;
+            color: white;
+        }
+
+        /* Enhanced Image Styling */
+        table.dataTable img {
+            transition: all 0.3s ease;
+            border: 2px solid #e3e3e0;
+        }
+
+        table.dataTable tbody tr:hover img {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border-color: #F8B803;
+        }
+
+        /* Enhanced Table Styles */
+        table.dataTable {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        table.dataTable thead th {
+            padding: 1rem;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        table.dataTable tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+        }
+
+        table.dataTable tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        table.dataTable tbody tr:hover {
+            background-color: #fffbf0;
+            transform: scale(1.002);
+        }
+
+        /* DataTable Info and Controls */
+        .dataTables_info {
+            color: #706f6c;
+            font-size: 0.875rem;
+        }
+
+        .dataTables_length label {
+            color: #706f6c;
+            font-size: 0.875rem;
+        }
+
+        .dataTables_filter label {
+            color: #1b1b18;
+            font-weight: 500;
+        }
+
+        .dataTables_wrapper .dataTables_length select,
+        .dataTables_wrapper .dataTables_filter input {
+            padding: 0.375rem 0.75rem;
+        }
+
+        .dataTables_wrapper .dataTables_length select:focus,
+        .dataTables_wrapper .dataTables_filter input:focus {
+            outline: none;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            border-radius: 0.5rem;
+            margin: 0 2px;
+        }
+
+        .card-header .btn-primary {
+            transition: all 0.3s ease;
+        }
+
+        .card-header .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(248, 184, 3, 0.3);
+        }
     </style>
 @endpush
 
