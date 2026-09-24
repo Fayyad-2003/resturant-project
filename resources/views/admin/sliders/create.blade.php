@@ -1,0 +1,413 @@
+@extends('admin.layouts.master')
+
+@push('styles')
+    <style>
+        .image-preview {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            background-color: #ffffff;
+            border: 2px dashed #e3e3e0;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .image-preview:hover {
+            border-color: #F8B803;
+        }
+
+        .image-preview.has-image {
+            border-style: solid;
+            border-color: #F8B803;
+        }
+
+        .image-preview label {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #706f6c;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .image-preview:hover label {
+            color: #F8B803;
+            background-color: rgba(248, 249, 250, 0.95);
+        }
+
+        .image-preview.has-image label {
+            background-color: rgba(27, 27, 24, 0.5);
+            color: #ffffff;
+            opacity: 0;
+        }
+
+        .image-preview.has-image:hover label {
+            opacity: 1;
+            background-color: rgba(27, 27, 24, 0.7);
+        }
+
+        .image-preview input[type="file"] {
+            display: none;
+        }
+
+        .image-preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .image-preview.has-image .image-preview-img {
+            display: block;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #1b1b18;
+            margin-bottom: 8px;
+        }
+
+        .form-control:focus {
+            border-color: #F8B803;
+            box-shadow: 0 0 0 0.2rem rgba(248, 184, 3, 0.25);
+        }
+
+        .card {
+            border: 1px solid #e3e3e0;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #1b1b18;
+            color: #EDEDEC;
+            border-bottom: 2px solid #F8B803;
+            border-radius: 0.75rem 0.75rem 0 0 !important;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .card-header h4 {
+            margin: 0;
+            font-weight: 600;
+            color: #EDEDEC;
+        }
+
+        .card-header .btn-primary {
+            background-color: #F8B803;
+            border-color: #F8B803;
+            color: #1b1b18;
+            font-weight: 600;
+        }
+
+        .card-header .btn-primary:hover {
+            background-color: #e0a503;
+            border-color: #e0a503;
+            color: #1b1b18;
+        }
+
+        .card-body {
+            padding: 2rem 1.5rem;
+        }
+
+        .card-footer {
+            background-color: #f9f9f9;
+            border-top: 1px solid #e3e3e0;
+            border-radius: 0 0 0.75rem 0.75rem;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .btn-primary {
+            background-color: #1b1b18;
+            border-color: #1b1b18;
+            color: #EDEDEC;
+            font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            background-color: #000;
+            border-color: #000;
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background-color: #3E3E3A;
+            border-color: #3E3E3A;
+            color: #EDEDEC;
+        }
+
+        .btn-secondary:hover {
+            background-color: #1b1b18;
+            border-color: #1b1b18;
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+        }
+
+        .section-header h1 {
+            font-weight: 700;
+            color: #1b1b18;
+            font-size: 1.875rem;
+        }
+
+        .section-header-breadcrumb {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .breadcrumb-item {
+            color: #706f6c;
+            font-size: 0.875rem;
+        }
+
+        .breadcrumb-item a {
+            color: #1b1b18;
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        .breadcrumb-item a:hover {
+            color: #F8B803;
+        }
+
+        .breadcrumb-item.active {
+            color: #F8B803;
+            font-weight: 500;
+        }
+
+        .breadcrumb-item:not(:last-child)::after {
+            content: "/";
+            margin-left: 0.5rem;
+            color: #A1A09A;
+        }
+
+        .text-danger {
+            color: #F53003 !important;
+        }
+
+        small.text-muted {
+            color: #706f6c !important;
+        }
+    </style>
+@endpush
+
+@section('content')
+    <section class="section">
+        <div class="section-header">
+            <h1 class="text-capitalize">Create New Slider</h1>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
+                <div class="breadcrumb-item"><a href="{{ route('admin.sliders.index') }}">Sliders</a></div>
+                <div class="breadcrumb-item active">Create</div>
+            </div>
+        </div>
+
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <form method="POST" action="{{ route('admin.sliders.store') }}" enctype="multipart/form-data">
+                            @csrf
+
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <h4 class="text-capitalize">Slider Information</h4>
+                                <a href="{{ route('admin.sliders.index') }}" class="btn btn-primary text-capitalize">
+                                    <i class="fas fa-list-alt"></i> All Sliders
+                                </a>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <!-- Image Upload -->
+                                    <div class="col-md-12 mb-4">
+                                        <div class="form-group">
+                                            <label for="image-upload">Slider Image <span
+                                                    class="text-danger">*</span></label>
+                                            <div id="image-preview" class="image-preview">
+                                                <img src="" alt="Preview" class="image-preview-img"
+                                                    id="preview-img">
+                                                <label for="image-upload" id="image-label">
+                                                    <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                                                    <br>
+                                                    Choose Image
+                                                </label>
+                                                <input type="file" name="image" id="image-upload" accept="image/*"
+                                                    required>
+                                            </div>
+                                            @error('image')
+                                                <div class="text-danger mt-2">{{ $message }}</div>
+                                            @enderror
+                                            <small class="form-text text-muted">Recommended size: 1920x1080 pixels. Max
+                                                size: 2MB</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Title -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="title">Title <span class="text-danger">*</span></label>
+                                            <input type="text" name="title" id="title"
+                                                class="form-control @error('title') is-invalid @enderror"
+                                                value="{{ old('title') }}" placeholder="Enter slider title" required>
+                                            @error('title')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <!-- Sub Title -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="sub_title">Sub Title</label>
+                                            <input type="text" name="sub_title" id="sub_title"
+                                                class="form-control @error('sub_title') is-invalid @enderror"
+                                                value="{{ old('sub_title') }}" placeholder="Enter subtitle">
+                                            @error('sub_title')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <!-- Offer -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="offer">Offer/Promotion Text</label>
+                                            <input type="text" name="offer" id="offer"
+                                                class="form-control @error('offer') is-invalid @enderror"
+                                                value="{{ old('offer') }}"
+                                                placeholder="e.g., 50% OFF, Special Deal, Limited Time Offer">
+                                            @error('offer')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                            <small class="form-text text-muted">Optional: Add promotional or offer text to
+                                                highlight on the slider</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Short Description -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="short_description">Short Description</label>
+                                            <textarea name="short_description" id="short_description"
+                                                class="form-control @error('short_description') is-invalid @enderror" rows="3"
+                                                placeholder="Enter a brief description">{{ old('short_description') }}</textarea>
+                                            @error('short_description')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <!-- Button Link -->
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label for="button_link">Button Link (URL)</label>
+                                            <input type="url" name="button_link" id="button_link"
+                                                class="form-control @error('button_link') is-invalid @enderror"
+                                                value="{{ old('button_link') }}" placeholder="https://example.com">
+                                            @error('button_link')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                            <small class="form-text text-muted">Optional: Add a link for the call-to-action
+                                                button</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Status -->
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="status">Status <span class="text-danger">*</span></label>
+                                            <select name="status" id="status"
+                                                class="form-control @error('status') is-invalid @enderror" required>
+                                                <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active
+                                                </option>
+                                                <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>
+                                                    Inactive</option>
+                                            </select>
+                                            @error('status')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer text-right">
+                                <a href="{{ route('admin.sliders.index') }}" class="btn btn-secondary">
+                                    <i class="fas fa-times"></i> Cancel
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="far fa-check-circle"></i> Create Slider
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            // Image upload preview with custom implementation
+            $('#image-upload').on('change', function(e) {
+                const file = e.target.files[0];
+
+                if (file) {
+                    // Validate file type
+                    if (!file.type.match('image.*')) {
+                        alert('Please select a valid image file.');
+                        this.value = '';
+                        return;
+                    }
+
+                    // Validate file size (2MB max)
+                    if (file.size > 2 * 1024 * 1024) {
+                        alert('Image size should not exceed 2MB.');
+                        this.value = '';
+                        return;
+                    }
+
+                    // Create FileReader to read the image
+                    const reader = new FileReader();
+
+                    reader.onload = function(event) {
+                        // Set the image source
+                        $('#preview-img').attr('src', event.target.result);
+
+                        // Add the 'has-image' class to show preview
+                        $('#image-preview').addClass('has-image');
+
+                        // Update label text
+                        $('#image-label').html(
+                            '<i class="fas fa-sync-alt fa-2x mb-2"></i><br>Change Image');
+                    };
+
+                    // Read the file as Data URL
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Form validation feedback
+            $('form').on('submit', function() {
+                $(this).find('button[type="submit"]').prop('disabled', true)
+                    .html('<i class="fas fa-spinner fa-spin"></i> Creating...');
+            });
+        });
+    </script>
+@endpush
