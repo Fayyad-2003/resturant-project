@@ -7,6 +7,7 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
     <title>FoodPark | @yield('title') </title>
     <link rel="icon" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('frontend/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/spacing.css') }}">
@@ -90,9 +91,7 @@
     <script src="{{ asset('frontend') }}/js/jquery-3.6.0.min.js"></script>
     <!--bootstrap js-->
     <script src="{{ asset('frontend') }}/js/bootstrap.bundle.min.js"></script>
-    <!--font-awesome js-->
-    <script src="{{ asset('frontend') }}/js/Font-Awesome.js"></script>
-    <!-- slick slider -->
+    <!--slick slider -->
     <script src="{{ asset('frontend') }}/js/slick.min.js"></script>
     <!-- isotop js -->
     <script src="{{ asset('frontend') }}/js/isotope.pkgd.min.js"></script>

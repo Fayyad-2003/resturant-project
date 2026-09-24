@@ -6754,3 +6754,20 @@ CHECKOUT PAGE START
           box-shadow: .2em -.2em 0 0 currentcolor;
         }
       }
+
+/* Font Awesome Fallback & Icon Compatibility */
+.fal, .fad {
+  font-family: "Font Awesome 5 Free", "Font Awesome 6 Free", sans-serif !important;
+  font-weight: 900 !important;
+}
+
+.far.fa-bars,
+.far.fa-search,
+.far.fa-times,
+.far.fa-camera,
+.far.fa-shopping-basket,
+.far.fa-map-marker-alt {
+  font-family: "Font Awesome 5 Free", "Font Awesome 6 Free", sans-serif !important;
+  font-weight: 900 !important;
+}
+

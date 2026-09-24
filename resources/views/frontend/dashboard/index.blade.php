@@ -117,7 +117,7 @@
                                         @csrf
                                         @method('PUT')
                                         <input type="hidden" name="id" value="">
-                                        <label for="upload"><i class="far fa-camera"></i></label>
+                                        <label for="upload"><i class="fas fa-camera"></i></label>
                                         <input type="file" id="upload" class="photo" name="photo" hidden>
                                         <button style="display: none;margin-bottom:20px;" id="photo_update_button"
                                             class="photo_update_button common_btn btn-sm mt-2  mb-4 w-full bg-info">upload
@@ -136,7 +136,7 @@
                                 <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
                                     data-bs-target="#v-pills-profile" type="button" role="tab"
                                     aria-controls="v-pills-profile" aria-selected="false"><span><i
-                                            class="fas fa-bags-shopping"></i></span> Order</button>
+                                            class="fas fa-shopping-bag"></i></span> Order</button>
 
                                 <button class="nav-link" id="v-pills-messages-tab2" data-bs-toggle="pill"
                                     data-bs-target="#v-pills-messages2" type="button" role="tab"
@@ -181,19 +181,19 @@
                                             <div class="row">
                                                 <div class="col-xl-4 col-sm-6 col-md-4">
                                                     <div class="fp__dsahboard_overview_item">
-                                                        <span class="icon"><i class="far fa-shopping-basket"></i></span>
+                                                        <span class="icon"><i class="fas fa-shopping-basket"></i></span>
                                                         <h4>total order <span>(0)</span></h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-4 col-sm-6 col-md-4">
                                                     <div class="fp__dsahboard_overview_item green">
-                                                        <span class="icon"><i class="far fa-shopping-basket"></i></span>
+                                                        <span class="icon"><i class="fas fa-shopping-basket"></i></span>
                                                         <h4>Completed <span>(0)</span></h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-4 col-sm-6 col-md-4">
                                                     <div class="fp__dsahboard_overview_item red">
-                                                        <span class="icon"><i class="far fa-shopping-basket"></i></span>
+                                                        <span class="icon"><i class="fas fa-shopping-basket"></i></span>
                                                         <h4>cancel <span>(0)</span></h4>
                                                     </div>
                                                 </div>

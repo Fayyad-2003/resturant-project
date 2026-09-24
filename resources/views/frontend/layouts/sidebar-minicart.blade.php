@@ -4,7 +4,7 @@
         <div class="fp__menu_cart_header">
             <h5>total item: <span class="cart_count" id="cart_count" style="font-size: 20px;font-weight:600;">(0)</span>
             </h5>
-            <span class="close_cart"><i class="fal fa-times"></i></span>
+            <span class="close_cart"><i class="fas fa-times"></i></span>
         </div>
         <ul class="minicart_products" id="minicart_products">
             {{-- Load products by ajax --}}

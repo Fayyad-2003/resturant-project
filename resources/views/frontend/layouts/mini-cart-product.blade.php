@@ -10,6 +10,6 @@
         <p class="price">25.00 <span class="text-black">*</span> 1</p>
     </div>
     <span class="del_icon remove_mini_cart_item" id="1">
-        <i class="fal fa-times"></i>
+        <i class="fas fa-times"></i>
     </span>
 </li>

@@ -12,7 +12,7 @@
                         </a>
                         <span>FoodPark
                         </span>
-                        <p class="info"><i class="far fa-map-marker-alt"></i> FoodPark
+                        <p class="info"><i class="fas fa-map-marker-alt"></i> FoodPark
                         </p>
                         <a class="info"><i class="fas fa-phone-alt"></i>
                             FoodPark

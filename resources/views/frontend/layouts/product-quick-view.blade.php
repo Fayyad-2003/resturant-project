@@ -1,6 +1,6 @@
 {{-- Product Quick View Modal --}}
 <div class="modal-body">
-    <button type="button" class="btn-close" aria-label="Close"><i class="fal fa-times"></i></button>
+    <button type="button" class="btn-close" aria-label="Close"><i class="fas fa-times"></i></button>
     <div class="fp__cart_popup_img">
         <img src="$product->thumbnail" alt="menu" class="img-fluid w-100">
     </div>
@@ -55,11 +55,11 @@
                 <div class="quentity_btn_area d-flex flex-wrapa align-items-center">
                     <div class="quentity_btn">
                         <button type="button" class="btn btn-danger cart_qty_decrement" id="cart_qty_decrement"><i
-                                class="fal fa-minus"></i></button>
+                                class="fas fa-minus"></i></button>
                         <input type="number" value="1" min="1" name="quantity" id="quantity"
                             class="quantity" style="width: 110px; ">
                         <button type="button" class="btn btn-success cart_qty_increment " id="cart_qty_increment"><i
-                                class="fal fa-plus"></i></button>
+                                class="fas fa-plus"></i></button>
                     </div>
 
                     <h3>FoodPark<h3 id="price" style="margin-left: 0 !important;">25.00

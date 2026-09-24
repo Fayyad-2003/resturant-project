@@ -5,7 +5,7 @@
             </a>
             <button class="navbar-toggler" type="button" aria-controls="navbarNav" aria-expanded="false"
                 aria-label="Toggle navigation">
-                <i class="far fa-bars"></i>
+                <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav m-auto">
@@ -30,10 +30,10 @@
                 </ul>
                 <ul class="menu_icon d-flex flex-wrap">
                     <li>
-                        <a class="menu_search"><i class="far fa-search"></i></a>
+                        <a class="menu_search"><i class="fas fa-search"></i></a>
                         <div class="fp__search_form">
                             <form>
-                                <span class="close_search"><i class="far fa-times"></i></span>
+                                <span class="close_search"><i class="fas fa-times"></i></span>
                                 <input type="text" name="search_title" id="search_title" class="search_title"
                                     placeholder="Search . . .">
                                 <button type="button" class="search_btn_product"
