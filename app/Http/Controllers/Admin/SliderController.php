@@ -101,9 +101,7 @@ class SliderController extends Controller
             $slider = Slider::findOrFail($id);
 
             // Delete the image file if it exists
-            if ($slider->image && \File::exists(public_path($slider->image))) {
-                \File::delete(public_path($slider->image));
-            }
+            $this->removeImage($slider->image);
 
             // Delete the slider record
             $slider->delete();
