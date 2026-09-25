@@ -26,9 +26,9 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="{{ route('admin.why-choose-us.index') }}">
                 <i class="fas fa-concierge-bell"></i>
-                <span>Manage Services</span>
+                <span>Why Choose Us</span>
             </a>
         </li>
         <li>
