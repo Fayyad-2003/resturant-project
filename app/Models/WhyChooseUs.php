@@ -9,5 +9,5 @@ class WhyChooseUs extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['key', 'value'];
+    protected $fillable = ['icon', 'title', 'short_description', 'status'];
 }

@@ -18,7 +18,9 @@ class WhyChooseUsFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'icon' => 'fa-solid fa-poperclip',
+            'title' => fake()->sentence(),
+            'short_description' => fake()->sentence(),
         ];
     }
 }

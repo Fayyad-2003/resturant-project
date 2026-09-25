@@ -19,6 +19,7 @@
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('admin') }}/assets/css/style.css">
+    <link rel="stylesheet" href="{{ asset('admin') }}/assets/css/bootstrap-iconpicker.css">
     <link rel="stylesheet" href="{{ asset('admin') }}/assets/css/components.css">
 
     @stack('styles')
@@ -45,6 +46,7 @@
     <script src="{{ asset('admin/assets/js/nprogress.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
     <script src="{{ asset('admin/assets/js/page/modules-toastr.js') }}"></script>
+    <script src="{{ asset('admin/assets/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
     <!-- Template JS File -->

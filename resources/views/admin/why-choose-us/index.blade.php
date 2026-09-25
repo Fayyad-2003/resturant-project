@@ -407,7 +407,7 @@
 
                         <div class="card-header d-flex items-center justify-content-between">
                             <h4 class="text-capitalize">List of Items</h4>
-                            <a href="{{ route('admin.sliders.create') }}" class="btn btn-primary text-capitalize">
+                            <a href="{{ route('admin.why-choose-us.create') }}" class="btn btn-primary text-capitalize">
                                 <i class="far fa-check-circle"></i> Create New
                             </a>
                         </div>
@@ -452,8 +452,8 @@
         });
 
         // Ensure processing indicator hides cleanly once table draws
-        $('#slider-table').on('draw.dt', function() {
-            $('#slider-table_processing').hide();
+        $('#why-choose-us-table').on('draw.dt', function() {
+            $('#why-choose-us-table_processing').hide();
         });
 
         // Delete item confirmation using SweetAlert (delegated for dynamically loaded datatable rows)
@@ -464,7 +464,7 @@
 
                 swal({
                     title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this slider!",
+                    text: "Once deleted, you will not be able to recover this item!",
                     icon: "warning",
                     buttons: {
                         cancel: {
@@ -488,7 +488,7 @@
                         // Show loading state
                         swal({
                             title: "Deleting...",
-                            text: "Please wait while we delete the slider.",
+                            text: "Please wait while we delete the item.",
                             icon: "info",
                             buttons: false,
                             closeOnClickOutside: false,
@@ -506,21 +506,22 @@
                                     swal({
                                         title: "Deleted!",
                                         text: response.message ||
-                                            "Slider has been deleted successfully.",
+                                            "Item has been deleted successfully.",
                                         icon: "success",
                                         button: "OK",
                                     }).then(() => {
-                                        $('#slider-table').DataTable().ajax
+                                        $('#why-choose-us-table').DataTable()
+                                            .ajax
                                             .reload();
                                     });
                                 } else {
                                     swal("Error!", response.message ||
-                                        "Failed to delete slider.", "error");
+                                        "Failed to delete item.", "error");
                                 }
                             },
                             error: function(xhr, status, error) {
                                 let errorMessage =
-                                    "Something went wrong while deleting the slider.";
+                                    "Something went wrong while deleting the item.";
 
                                 if (xhr.responseJSON && xhr.responseJSON.message) {
                                     errorMessage = xhr.responseJSON.message;
