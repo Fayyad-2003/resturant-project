@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
@@ -24,4 +25,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->as('admi
     // ------------   Why Choose Us Routes --------------------
     Route::put('/update-why-choose-us-titles', [WhyChooseUsController::class, 'updateSectionTitles'])->name('update-why-choose-us-titles');
     Route::resource('/why-choose-us', WhyChooseUsController::class);
+
+    // ------------   Product Categories Routes --------------------
+    Route::resource('/categories', CategoryController::class);
 });

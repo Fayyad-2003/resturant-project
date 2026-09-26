@@ -37,7 +37,7 @@
                 <span>Manage Restaurant</span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="">Product Categories</a></li>
+                <li><a href="{{ route('admin.categories.index') }}">Product Categories</a></li>
             </ul>
         </li>
         <li>
