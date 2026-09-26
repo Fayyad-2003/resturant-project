@@ -273,7 +273,7 @@
 
                         <div class="card-header d-flex items-center justify-content-between">
                             <h4 class="text-capitalize">All Categories</h4>
-                            <a href="{{ route('admin.sliders.create') }}" class="btn btn-primary text-capitalize">
+                            <a href="{{ route('admin.categories.create') }}" class="btn btn-primary text-capitalize">
                                 <i class="far fa-check-circle"></i> Create Category
                             </a>
                         </div>
