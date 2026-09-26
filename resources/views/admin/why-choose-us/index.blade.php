@@ -179,16 +179,13 @@
             color: white;
         }
 
-        /* Enhanced Image Styling */
-        table.dataTable img {
+        /* Enhanced Icon Styling */
+        table.dataTable i {
             transition: all 0.3s ease;
-            border: 2px solid #e3e3e0;
         }
 
-        table.dataTable tbody tr:hover img {
+        table.dataTable tbody tr:hover i {
             transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            border-color: #F8B803;
         }
 
         /* Enhanced Table Styles */

@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\WhyChooseU;
+use App\Models\WhyChooseUs;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -22,7 +23,29 @@ class WhyChooseUsDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'whychooseus.action')
+            ->addColumn('action', function ($query) {
+                $edit = "<a href='" . route('admin.why-choose-us.edit', $query->id) . "' class='btn btn-warning me-2' title='Edit Item'>
+                    <i class='fas fa-edit'></i> edit
+                </a>";
+
+                $delete = "<a href='" . route('admin.why-choose-us.destroy', $query->id) . "' class='btn btn-danger delete_btn' title='Delete Item'>
+                    <i class='fas fa-trash'></i> delete
+                </a>";
+
+                return '<div class="d-flex gap-2 justify-content-center">' . $edit . $delete . '</div>';
+            })
+            ->editColumn('icon', function ($query) {
+                return "<i class='" . $query->icon . "' style='font-size:40px; color: #1b1b18;' />";
+            })
+            ->editColumn('status', function ($query) {
+                return $query->status == 1
+                    ? '<span class="badge badge-success px-3 py-2">Active</span>'
+                    : '<span class="badge badge-secondary px-3 py-2">Inactive</span>';
+            })
+            ->editColumn('title', function ($query) {
+                return '<strong>' . e($query->title) . '</strong>';
+            })
+            ->rawColumns(['action', 'icon', 'status', 'title'])
             ->setRowId('id');
     }
 
@@ -31,7 +54,7 @@ class WhyChooseUsDataTable extends DataTable
      *
      * @return QueryBuilder<WhyChooseU>
      */
-    public function query(WhyChooseU $model): QueryBuilder
+    public function query(WhyChooseUs $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -42,19 +65,11 @@ class WhyChooseUsDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('whychooseus-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-            Button::make('csv'),
-            Button::make('pdf'),
-            Button::make('print'),
-            Button::make('reset'),
-            Button::make('reload')
-                    ]);
+            ->setTableId('why-choose-us-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->orderBy(0, 'asc')
+            ->selectStyleSingle();
     }
 
     /**
@@ -63,15 +78,16 @@ class WhyChooseUsDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id')->width(60),
+            Column::make('icon')->width(100)->addClass('text-center'),
+            Column::make('title'),
+            Column::make('short_description')->title('Description'),
+            Column::make('status')->width(100)->addClass('text-center'),
             Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+                ->exportable(false)
+                ->printable(false)
+                ->width(150)
+                ->addClass('text-center'),
         ];
     }
 
