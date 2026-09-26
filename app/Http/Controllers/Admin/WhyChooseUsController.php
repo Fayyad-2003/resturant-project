@@ -53,17 +53,22 @@ class WhyChooseUsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): View
     {
-        //
+        $item = WhyChooseUs::findOrFail($id);
+        return view('admin.why-choose-us.edit', compact('item'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(WhyChooseUsCreateRequest $request, string $id): RedirectResponse
     {
-        //
+        $item = WhyChooseUs::findOrFail($id);
+        $item->update($request->validated());
+        toastr()->success('Updated Successfully');
+
+        return to_route('admin.why-choose-us.index');
     }
 
     public function updateSectionTitles(Request $request)
@@ -98,6 +103,19 @@ class WhyChooseUsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $item = WhyChooseUs::findOrFail($id);
+            $item->delete();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Item deleted successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to delete item'
+            ], 500);
+        }
     }
 }
