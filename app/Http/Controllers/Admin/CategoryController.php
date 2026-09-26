@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\CategoryDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Categories\CategoryCreateRequest;
+use App\Http\Requests\Admin\Categories\CategoryUpdateRequest;
 use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -56,17 +57,26 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): View
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CategoryUpdateRequest $request, string $id): RedirectResponse
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
+        $category->status = $request->status;
+        $category->show_at_home = $request->show_at_home ?? 0;
+        $category->save();
+
+        toastr()->success('Category updated successfully!');
+        return to_route('admin.categories.index');
     }
 
     /**
@@ -74,6 +84,19 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $category = Category::findOrFail($id);
+            $category->delete();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Category deleted successfully!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to delete category. It may be in use.'
+            ], 500);
+        }
     }
 }

@@ -4,8 +4,9 @@ namespace App\Http\Requests\Admin\Categories;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class CategoryCreateRequest extends FormRequest
+class CategoryUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +23,10 @@ class CategoryCreateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $categoryId = $this->route('category');
+
         return [
-            'name' => ['required', 'max:255', 'unique:categories,name'],
+            'name' => ['required', 'max:255', Rule::unique('categories', 'name')->ignore($categoryId)],
             'status' => ['required', 'boolean'],
             'show_at_home' => ['nullable', 'boolean'],
         ];

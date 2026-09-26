@@ -179,6 +179,21 @@
             color: white;
         }
 
+        /* Slug Column Styling */
+        table.dataTable tbody td code {
+            background-color: #f9f9f9;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            border: 1px solid #e3e3e0;
+        }
+
+        /* Enhanced Name Column */
+        table.dataTable tbody td strong {
+            color: #1b1b18;
+            font-weight: 600;
+        }
+
         /* Enhanced Image Styling */
         table.dataTable img {
             transition: all 0.3s ease;
@@ -297,8 +312,8 @@
 
     <script>
         // Ensure processing indicator hides cleanly once table draws
-        $('#slider-table').on('draw.dt', function() {
-            $('#slider-table_processing').hide();
+        $('#category-table').on('draw.dt', function() {
+            $('#category-table_processing').hide();
         });
 
         // Delete item confirmation using SweetAlert (delegated for dynamically loaded datatable rows)
@@ -309,7 +324,7 @@
 
                 swal({
                     title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this slider!",
+                    text: "Once deleted, you will not be able to recover this category!",
                     icon: "warning",
                     buttons: {
                         cancel: {
@@ -333,7 +348,7 @@
                         // Show loading state
                         swal({
                             title: "Deleting...",
-                            text: "Please wait while we delete the slider.",
+                            text: "Please wait while we delete the category.",
                             icon: "info",
                             buttons: false,
                             closeOnClickOutside: false,
@@ -351,21 +366,21 @@
                                     swal({
                                         title: "Deleted!",
                                         text: response.message ||
-                                            "Slider has been deleted successfully.",
+                                            "Category has been deleted successfully.",
                                         icon: "success",
                                         button: "OK",
                                     }).then(() => {
-                                        $('#slider-table').DataTable().ajax
+                                        $('#category-table').DataTable().ajax
                                             .reload();
                                     });
                                 } else {
                                     swal("Error!", response.message ||
-                                        "Failed to delete slider.", "error");
+                                        "Failed to delete category.", "error");
                                 }
                             },
                             error: function(xhr, status, error) {
                                 let errorMessage =
-                                    "Something went wrong while deleting the slider.";
+                                    "Something went wrong while deleting the category.";
 
                                 if (xhr.responseJSON && xhr.responseJSON.message) {
                                     errorMessage = xhr.responseJSON.message;
