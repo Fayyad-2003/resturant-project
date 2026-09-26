@@ -74,6 +74,39 @@
         }
     </script>
 
+    <!-- Sidebar Dropdown Script -->
+    <script>
+        // Use jQuery for better compatibility since it's already loaded
+        $(document).ready(function() {
+            console.log('jQuery Sidebar dropdown script loaded');
+
+            // Handle dropdown clicks
+            $('.sidebar-menu li.has-dropdown > a.has-dropdown').on('click', function(e) {
+                e.preventDefault();
+                console.log('Dropdown clicked');
+
+                var $this = $(this);
+                var $parentLi = $this.parent('li.has-dropdown');
+                var $dropdownMenu = $parentLi.find('.dropdown-menu');
+
+                console.log('Parent:', $parentLi);
+                console.log('Menu:', $dropdownMenu);
+
+                // Close all other dropdowns
+                $('.sidebar-menu li.has-dropdown').not($parentLi).each(function() {
+                    $(this).find('a.has-dropdown').removeClass('active');
+                    $(this).find('.dropdown-menu').removeClass('show');
+                });
+
+                // Toggle current dropdown
+                $this.toggleClass('active');
+                $dropdownMenu.toggleClass('show');
+
+                console.log('Toggled - Has show class:', $dropdownMenu.hasClass('show'));
+            });
+        });
+    </script>
+
     @stack('scripts')
 </body>
 

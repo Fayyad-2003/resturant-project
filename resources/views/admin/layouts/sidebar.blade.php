@@ -31,11 +31,14 @@
                 <span>Why Choose Us</span>
             </a>
         </li>
-        <li>
-            <a href="#">
-                <i class="fas fa-users"></i>
-                <span>Manage Team/Chef</span>
+        <li class="has-dropdown">
+            <a href="javascript:void(0);" class="has-dropdown">
+                <i class="fas fa-columns"></i>
+                <span>Manage Restaurant</span>
             </a>
+            <ul class="dropdown-menu">
+                <li><a href="">Product Categories</a></li>
+            </ul>
         </li>
         <li>
             <a href="#">

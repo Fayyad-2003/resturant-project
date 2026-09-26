@@ -84,6 +84,85 @@ body {
     width: 1.25rem;
 }
 
+/* Dropdown Menu Styles */
+.admin-sidebar .sidebar-menu li.has-dropdown {
+    /* Remove position relative so dropdown flows naturally */
+}
+
+.admin-sidebar .sidebar-menu li a.has-dropdown {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.admin-sidebar .sidebar-menu li a.has-dropdown::after {
+    content: '\f078';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 1rem;
+    transition: transform 0.3s ease;
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+.admin-sidebar .sidebar-menu li a.has-dropdown.active::after {
+    transform: rotate(180deg);
+    opacity: 1;
+}
+
+.admin-sidebar .sidebar-menu li a.has-dropdown:hover {
+    background-color: #3E3E3A;
+    color: #fff;
+}
+
+.admin-sidebar .sidebar-menu li a.has-dropdown.active {
+    background-color: #3E3E3A;
+    color: #F8B803;
+}
+
+.admin-sidebar .sidebar-menu .dropdown-menu {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out !important;
+    background-color: transparent !important;
+    display: block !important;
+    position: static !important;
+    float: none !important;
+    border: none !important;
+}
+
+.admin-sidebar .sidebar-menu .dropdown-menu.show {
+    max-height: 1000px !important;
+    padding: 0.5rem 0 !important;
+}
+
+.admin-sidebar .sidebar-menu .dropdown-menu li {
+    margin-left: 0;
+}
+
+.admin-sidebar .sidebar-menu .dropdown-menu li a {
+    padding: 0.75rem 1rem 0.75rem 3rem;
+    font-size: 0.875rem;
+    margin: 0;
+    border-radius: 0.5rem;
+    color: #A1A09A;
+    background-color: transparent;
+}
+
+.admin-sidebar .sidebar-menu .dropdown-menu li a:hover {
+    background-color: #2d2d29;
+    color: #EDEDEC;
+}
+
+.admin-sidebar .sidebar-menu .dropdown-menu li a.active {
+    background-color: #F8B803;
+    color: #1b1b18;
+}
+
 /* Main Content Area */
 .admin-main-content {
     margin-left: 280px;
