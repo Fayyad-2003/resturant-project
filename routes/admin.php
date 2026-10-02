@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
@@ -28,4 +29,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->as('admi
 
     // ------------   Product Categories Routes --------------------
     Route::resource('/categories', CategoryController::class);
+
+    // ------------   Product Categories Routes --------------------
+    Route::resource('/products', ProductController::class);
 });

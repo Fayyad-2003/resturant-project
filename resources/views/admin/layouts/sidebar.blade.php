@@ -38,13 +38,8 @@
             </a>
             <ul class="dropdown-menu">
                 <li><a href="{{ route('admin.categories.index') }}">Product Categories</a></li>
+                <li><a href="{{ route('admin.products.index') }}">Products</a></li>
             </ul>
-        </li>
-        <li>
-            <a href="#">
-                <i class="fas fa-mobile-alt"></i>
-                <span>Manage Platform</span>
-            </a>
         </li>
         <li>
             <a href="#">
