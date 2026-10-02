@@ -30,6 +30,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->as('admi
     // ------------   Product Categories Routes --------------------
     Route::resource('/categories', CategoryController::class);
 
-    // ------------   Product Categories Routes --------------------
+    // ------------   Products Routes --------------------
+    Route::post('/upload-image', [ProductController::class, 'uploadEditorImage'])->name('upload-image');
     Route::resource('/products', ProductController::class);
 });
