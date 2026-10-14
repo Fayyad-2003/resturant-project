@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
@@ -33,4 +34,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->as('admi
     // ------------   Products Routes --------------------
     Route::post('/upload-image', [ProductController::class, 'uploadEditorImage'])->name('upload-image');
     Route::resource('/products', ProductController::class);
+
+    // ------------   Product Gallery Routes --------------------
+    Route::get('/product-gallery/{productId}', [ProductGalleryController::class, 'index'])->name('product-gallery.show-index');
+    Route::resource('/product-gallery', ProductGalleryController::class);
 });

@@ -27,11 +27,22 @@ class ProductDataTable extends DataTable
                     <i class='fas fa-edit'></i> Edit
                 </a>";
 
-                $delete = "<a href='" . route('admin.products.destroy', $query->id) . "' class='btn btn-danger delete_btn' title='Delete Product'>
+                $delete = "<a href='" . route('admin.products.destroy', $query->id) . "' class='btn btn-danger me-2 delete_btn' title='Delete Product'>
                     <i class='fas fa-trash'></i> Delete
                 </a>";
 
-                return '<div class="d-flex gap-2 justify-content-center">' . $edit . $delete . '</div>';
+                $more = "<div class='dropdown dropleft d-inline'>
+                    <button type='button' class='btn btn-dark dropdown-toggle dropdown-toggle-no-caret' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' title='More Actions'>
+                        <i class='fas fa-ellipsis-v'></i>
+                    </button>
+                    <div class='dropdown-menu'>
+                        <a class='dropdown-item' href='" . route('admin.product-gallery.show-index', $query->id) . "'>
+                            <i class='fas fa-images'></i> Product Gallery
+                        </a>
+                    </div>
+                </div>";
+
+                return '<div class="d-flex gap-2 justify-content-center align-items-center">' . $edit . $delete . $more . '</div>';
             })
             ->editColumn('main_image', function ($query) {
                 try {
@@ -127,7 +138,7 @@ class ProductDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(120)
+                ->width(220)
                 ->addClass('text-center')
                 ->title('Actions'),
         ];

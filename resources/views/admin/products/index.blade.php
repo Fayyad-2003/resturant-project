@@ -295,6 +295,89 @@
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(248, 184, 3, 0.3);
         }
+
+        /* Dropdown Styling */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle::after {
+            margin-left: 0.5rem;
+        }
+
+        .dropdown-menu {
+            min-width: 160px;
+            border-radius: 0.5rem;
+            border: 1px solid #e3e3e0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 0.5rem 0;
+        }
+
+        .dropdown-item {
+            padding: 0.5rem 1rem;
+            color: #1b1b18;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dropdown-item:hover {
+            background-color: #F8B803;
+            color: #1b1b18;
+        }
+
+        .dropdown-item i {
+            font-size: 0.875rem;
+            width: 16px;
+        }
+
+        /* More Actions Button */
+        table.dataTable tbody td .btn-dark {
+            background-color: #1b1b18;
+            border-color: #1b1b18;
+            color: white;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.7rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        table.dataTable tbody td .btn-dark:hover {
+            background-color: #000;
+            border-color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(27, 27, 24, 0.4);
+        }
+
+        /* Remove default dropdown arrow when using custom icon */
+        .dropdown-toggle-no-caret::after {
+            display: none;
+        }
+
+        /* Match button sizes */
+        table.dataTable tbody td .btn {
+            min-width: auto;
+            height: auto;
+        }
+
+        /* Vertical ellipsis icon */
+        table.dataTable tbody td .btn-dark i.fa-ellipsis-v {
+            font-size: 0.875rem;
+        }
+
+        /* Fix dropdown z-index in datatable */
+        table.dataTable tbody td {
+            overflow: visible !important;
+        }
+
+        .dataTables_wrapper {
+            overflow: visible !important;
+        }
     </style>
 @endpush
 
@@ -341,6 +424,30 @@
 
         // Delete item confirmation using SweetAlert (delegated for dynamically loaded datatable rows)
         $(document).ready(function() {
+            // Initialize Bootstrap dropdowns for dynamically loaded content
+            $('body').on('click', '.dropdown-toggle', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Close all other dropdowns
+                $('.dropdown-menu').not($(this).next('.dropdown-menu')).removeClass('show');
+
+                // Toggle current dropdown
+                $(this).next('.dropdown-menu').toggleClass('show');
+            });
+
+            // Close dropdown when clicking outside
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.dropdown').length) {
+                    $('.dropdown-menu').removeClass('show');
+                }
+            });
+
+            // Close dropdown when clicking on a dropdown item
+            $('body').on('click', '.dropdown-item', function() {
+                $('.dropdown-menu').removeClass('show');
+            });
+
             $('body').on('click', '.delete_btn', function(e) {
                 e.preventDefault();
                 let deleteUrl = $(this).attr('href');
