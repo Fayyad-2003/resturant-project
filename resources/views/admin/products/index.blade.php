@@ -194,6 +194,29 @@
             font-weight: 600;
         }
 
+        /* Price Styling */
+        table.dataTable tbody td .text-success {
+            color: #10B981 !important;
+            font-size: 1rem;
+        }
+
+        table.dataTable tbody td .text-danger {
+            color: #F53003 !important;
+            font-size: 0.95rem;
+        }
+
+        /* Category Badge */
+        .badge-info {
+            background-color: #3B82F6;
+            color: white;
+        }
+
+        /* Discount Badge */
+        table.dataTable tbody td .text-danger small {
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
         /* Enhanced Image Styling */
         table.dataTable img {
             transition: all 0.3s ease;

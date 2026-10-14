@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\ProductDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Products\ProductCreateRequest;
+use App\Http\Requests\Admin\Products\ProductUpdateRequest;
+use App\Models\Category;
 use App\Models\Product;
 use App\Traits\FileUploadTrait;
 use Illuminate\Contracts\View\View;
@@ -98,17 +100,64 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): View
     {
-        //
+        $product = Product::findOrFail($id);
+        $categories = Category::where('status', 1)->get();
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductUpdateRequest $request, string $id): RedirectResponse
     {
-        //
+        try {
+            $product = Product::findOrFail($id);
+
+            // Handle image upload if new image is provided
+            if ($request->hasFile('main_image')) {
+                // Upload new image and delete old one
+                $imagePath = $this->uploadImage($request, 'main_image', $product->main_image);
+
+                if ($imagePath) {
+                    $product->main_image = $imagePath;
+                }
+            }
+            // If no new image, keep the existing one (don't change main_image field)
+
+            // Update product fields
+            $product->name = $request->name;
+            $product->slug = Str::slug($request->name);
+
+            // Check if slug exists (excluding current product) and make it unique
+            $originalSlug = $product->slug;
+            $count = 2;
+            while (Product::where('slug', $product->slug)->where('id', '!=', $id)->exists()) {
+                $product->slug = $originalSlug . '-' . $count;
+                $count++;
+            }
+
+            $product->category_id = $request->category_id;
+            $product->short_description = $request->short_description;
+            $product->long_description = $request->long_description;
+            $product->price = $request->price;
+            $product->offer_price = $request->offer_price ?? 0;
+            $product->sku = $request->sku;
+            $product->seo_title = $request->seo_title;
+            $product->seo_description = $request->seo_description;
+            $product->show_at_home = $request->show_at_home ?? 0;
+            $product->status = $request->status;
+            $product->save();
+
+            toastr()->success('Product updated successfully!');
+            return to_route('admin.products.index');
+        } catch (\Exception $e) {
+            \Log::error('Product update failed: ' . $e->getMessage());
+            \Log::error('Stack trace: ' . $e->getTraceAsString());
+            toastr()->error('Failed to update product. Error: ' . $e->getMessage());
+            return back()->withInput();
+        }
     }
 
     /**
@@ -116,7 +165,26 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $product = Product::findOrFail($id);
+
+            // Delete product image
+            $this->removeImage($product->main_image);
+
+            // Delete product
+            $product->delete();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Product deleted successfully!'
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Product deletion failed: ' . $e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to delete product. It may be in use.'
+            ], 500);
+        }
     }
 
     /**

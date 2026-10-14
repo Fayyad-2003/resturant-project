@@ -22,7 +22,68 @@ class ProductDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'product.action')
+            ->addColumn('action', function ($query) {
+                $edit = "<a href='" . route('admin.products.edit', $query->id) . "' class='btn btn-warning me-2' title='Edit Product'>
+                    <i class='fas fa-edit'></i> Edit
+                </a>";
+
+                $delete = "<a href='" . route('admin.products.destroy', $query->id) . "' class='btn btn-danger delete_btn' title='Delete Product'>
+                    <i class='fas fa-trash'></i> Delete
+                </a>";
+
+                return '<div class="d-flex gap-2 justify-content-center">' . $edit . $delete . '</div>';
+            })
+            ->editColumn('main_image', function ($query) {
+                try {
+                    $imagePath = $query->main_image ?? '/uploads/default-product.jpg';
+                    return '<img width="80" height="50" src="' . asset($imagePath) . '" alt="' . e($query->name) . '" class="rounded shadow-sm" style="object-fit: cover;" onerror="this.src=\'' . asset('/admin/assets/img/avatar/avatar-1.png') . '\'" />';
+                } catch (\Exception $e) {
+                    return '<span class="text-muted">No Image</span>';
+                }
+            })
+            ->editColumn('name', function ($query) {
+                return '<strong>' . e($query->name) . '</strong>';
+            })
+            ->editColumn('category_id', function ($query) {
+                try {
+                    if ($query->category) {
+                        return '<span class="badge badge-info px-3 py-2">' . e($query->category->name) . '</span>';
+                    }
+                    return '<span class="badge badge-secondary px-3 py-2">Uncategorized</span>';
+                } catch (\Exception $e) {
+                    \Log::error('Category error: ' . $e->getMessage());
+                    return '<span class="badge badge-secondary px-3 py-2">Error</span>';
+                }
+            })
+            ->editColumn('price', function ($query) {
+                return '<strong class="text-success">$' . number_format($query->price, 2) . '</strong>';
+            })
+            ->editColumn('offer_price', function ($query) {
+                try {
+                    if ($query->offer_price > 0) {
+                        // Calculate discount percentage inline
+                        $discount = 0;
+                        if ($query->price > 0) {
+                            $discount = (int) round((($query->price - $query->offer_price) / $query->price) * 100);
+                        }
+                        return '<span class="text-danger"><strong>$' . number_format($query->offer_price, 2) . '</strong> <small>(' . $discount . '% off)</small></span>';
+                    }
+                    return '<span class="text-muted">-</span>';
+                } catch (\Exception $e) {
+                    return '<span class="text-muted">-</span>';
+                }
+            })
+            ->editColumn('status', function ($query) {
+                return $query->status
+                    ? '<span class="badge badge-success px-3 py-2">Active</span>'
+                    : '<span class="badge badge-secondary px-3 py-2">Inactive</span>';
+            })
+            ->editColumn('show_at_home', function ($query) {
+                return $query->show_at_home
+                    ? '<span class="badge badge-success px-3 py-2">Yes</span>'
+                    : '<span class="badge badge-secondary px-3 py-2">No</span>';
+            })
+            ->rawColumns(['action', 'main_image', 'name', 'category_id', 'price', 'offer_price', 'status', 'show_at_home'])
             ->setRowId('id');
     }
 
@@ -33,7 +94,7 @@ class ProductDataTable extends DataTable
      */
     public function query(Product $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->with('category')->newQuery();
     }
 
     /**
@@ -42,19 +103,11 @@ class ProductDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('product-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-            Button::make('csv'),
-            Button::make('pdf'),
-            Button::make('print'),
-            Button::make('reset'),
-            Button::make('reload')
-                    ]);
+            ->setTableId('product-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->orderBy(0, 'asc')
+            ->selectStyleSingle();
     }
 
     /**
@@ -63,15 +116,20 @@ class ProductDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id')->width(60)->title('ID'),
+            Column::make('main_image')->width(100)->title('Image'),
+            Column::make('name'),
+            Column::make('category_id')->width(120)->title('Category'),
+            Column::make('price')->width(100)->title('Price'),
+            Column::make('offer_price')->width(120)->title('Offer Price'),
+            Column::make('status')->width(100)->title('Status'),
+            Column::make('show_at_home')->width(120)->title('Show at Home'),
             Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+                ->exportable(false)
+                ->printable(false)
+                ->width(120)
+                ->addClass('text-center')
+                ->title('Actions'),
         ];
     }
 
