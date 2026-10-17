@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
+use App\Http\Controllers\Admin\ProductSizeAndOptionController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
@@ -38,4 +39,13 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->as('admi
     // ------------   Product Gallery Routes --------------------
     Route::get('/product-gallery/{productId}', [ProductGalleryController::class, 'index'])->name('product-gallery.show-index');
     Route::resource('/product-gallery', ProductGalleryController::class);
+
+    // ------------   Product Sizes & Options Routes --------------------
+    Route::get('/product-size-and-option/{productId}', [ProductSizeAndOptionController::class, 'index'])->name('product-size-and-option.index');
+
+    Route::post('/product-size', [ProductSizeAndOptionController::class, 'storeSize'])->name('product-size.store');
+    Route::delete('/product-size/{id}', [ProductSizeAndOptionController::class, 'destroySize'])->name('product-size.destroy');
+
+    Route::post('/product-option', [ProductSizeAndOptionController::class, 'storeOption'])->name('product-option.store');
+    Route::delete('/product-option/{id}', [ProductSizeAndOptionController::class, 'destroyOption'])->name('product-option.destroy');
 });

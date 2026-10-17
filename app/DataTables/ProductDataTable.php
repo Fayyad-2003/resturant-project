@@ -39,6 +39,9 @@ class ProductDataTable extends DataTable
                         <a class='dropdown-item' href='" . route('admin.product-gallery.show-index', $query->id) . "'>
                             <i class='fas fa-images'></i> Product Gallery
                         </a>
+                        <a class='dropdown-item' href='" . route('admin.product-size-and-option.index', $query->id) . "'>
+                            <i class='fas fa-list'></i> Sizes & Options
+                        </a>
                     </div>
                 </div>";
 
