@@ -29,3 +29,13 @@ if (!function_exists('generateUniqueSlug')) {
         return $slug;
     }
 }
+
+/**
+ * Format price with currency symbol
+ */
+if (!function_exists('currencyPosition')) {
+    function currencyPosition($price): string
+    {
+        return '$' . number_format((float) $price, 2);
+    }
+}
