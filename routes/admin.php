@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\ProductSizeAndOptionController;
@@ -48,4 +49,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->as('admi
 
     Route::post('/product-option', [ProductSizeAndOptionController::class, 'storeOption'])->name('product-option.store');
     Route::delete('/product-option/{id}', [ProductSizeAndOptionController::class, 'destroyOption'])->name('product-option.destroy');
+
+    // ------------   Coupons Routes --------------------
+    Route::resource('/coupons', CouponController::class);
 });

@@ -42,9 +42,9 @@
             </ul>
         </li>
         <li>
-            <a href="#">
-                <i class="fas fa-chart-line"></i>
-                <span>Counter Data</span>
+            <a href="{{ route('admin.coupons.index') }}">
+                <i class="fas fa-tags"></i>
+                <span>Manage Coupons</span>
             </a>
         </li>
         <li>
