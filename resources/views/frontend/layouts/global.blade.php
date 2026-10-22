@@ -147,6 +147,7 @@
                 cartCount();
                 minicart();
                 myCartContent();
+                if (typeof couponCalculation === 'function') couponCalculation();
                 toastr.success(response);
             },
             error: function() {
@@ -182,6 +183,7 @@
                 cartCount();
                 minicart();
                 myCartContent();
+                if (typeof couponCalculation === 'function') couponCalculation();
                 toastr.success(response);
             }
         })
@@ -201,6 +203,7 @@
                 cartCount();
                 minicart();
                 myCartContent();
+                if (typeof couponCalculation === 'function') couponCalculation();
                 toastr.success(response);
             }
         });
@@ -219,6 +222,7 @@
                 cartCount();
                 minicart();
                 myCartContent();
+                if (typeof couponCalculation === 'function') couponCalculation();
                 toastr.success(response);
             }
         });

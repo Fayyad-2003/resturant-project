@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CouponController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\FrontnendController;
 use App\Http\Controllers\Frontend\ProfileController;
@@ -20,6 +21,13 @@ Route::controller(CartController::class)->group(function () {
     Route::post('/cart/qty/increment', 'cartqtyincrement')->name('cart.qty.increment');
     Route::post('/cart/qty/decrement', 'cartqtydecrement')->name('cart.qty.decrement');
     Route::post('/cart/clear', 'cartcleard')->name('cart.clear');
+});
+
+// Coupon all routes
+Route::controller(CouponController::class)->group(function () {
+    Route::get('/coupon/apply', 'couponApply')->name('coupon.apply');
+    Route::get('/coupon/calculation', 'couponCalculation')->name('coupon.calculation');
+    Route::get('/coupon/remove', 'couponRemove')->name('coupon.remove');
 });
 
 Route::get('/dashboard', function () {
