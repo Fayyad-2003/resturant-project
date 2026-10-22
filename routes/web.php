@@ -3,6 +3,7 @@
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CouponController;
 use App\Http\Controllers\Frontend\DashboardController;
+use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\FrontnendController;
 use App\Http\Controllers\Frontend\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,17 @@ Route::controller(CouponController::class)->group(function () {
     Route::get('/coupon/apply', 'couponApply')->name('coupon.apply');
     Route::get('/coupon/calculation', 'couponCalculation')->name('coupon.calculation');
     Route::get('/coupon/remove', 'couponRemove')->name('coupon.remove');
+});
+
+
+// Checkout all routes
+Route::controller(FrontnendController::class)->group(function () {
+    Route::get('/checkout', 'checkout')->name('checkout')->middleware('auth');
+    Route::get('/checkout/content', 'checkoutcontent')->name('checkout.content');
+    Route::get('/checkout/store', 'checkoutstore')->name('checkout.store')->middleware('auth');
+    Route::get('/select/district', 'selectdistrict')->name('select.district');
+    Route::get('/select/state', 'selectstate')->name('select.state');
+    Route::get('/get/delivery/charge', 'getdeliverycharge')->name('get.delivery.charge');
 });
 
 Route::get('/dashboard', function () {

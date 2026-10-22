@@ -3,13 +3,19 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\CheckoutRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SectionTitle;
 use App\Models\Slider;
 use App\Models\WhyChooseUs;
+use App\Services\PaymentService;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class FrontnendController extends Controller
 {
@@ -26,12 +32,91 @@ class FrontnendController extends Controller
 
     /**
      * Load product quick view modal via AJAX.
-    */
+     */
 
-    public function productQuickView(string $id = null){
+    public function productQuickView(string $id = null)
+    {
         $productId = $id ?? request('id');
         $product = Product::with(['sizes', 'options'])->findOrFail($productId);
         return view('frontend.layouts.product-quick-view', compact('product'))->render();
+    }
+
+    public function checkout()
+    {
+        if (Cart::total() > 0) {
+            $alldivisions = DB::table('divisions')->where('status', '1')->orderBy('name', 'asc')->get();
+            return view('frontend.pages.checkout.index', compact('alldivisions'));
+        } else {
+            toastr()->warning('Your cart is empty!');
+            return to_route('home');
+        }
+    }
+
+    public function checkoutContent()
+    {
+        return view('frontend.layouts.partials.checkout-content')->render();
+    }
+
+    public function selectDistrict(Request $request)
+    {
+        $districts = DB::table('districts')->where('division_id', $request->division_id)->where('status', '1')->get();
+        return response()->json($districts);
+    }
+
+    public function selectState(Request $request)
+    {
+        $states = DB::table('upazilas')->where('district_id', $request->district_id)->where('status', '1')->get();
+        return response()->json($states);
+    }
+
+    public function getDeliveryCharge(Request $request)
+    {
+        $division = DB::table('divisions')->where('id', $request->division_id)->first();
+        $charge = $division ? (float) $division->delivery_fee : 0;
+
+        if (Session::has('coupon')) {
+            $totalPrice = (float) session()->get('coupon')['coupon_discount_amount'];
+        } else {
+            $totalPrice = (float) Cart::total();
+        }
+
+        return response()->json([
+            'delivery_charge' => $charge,
+            'totalprice' => $totalPrice,
+            'finaltotalprice' => round($totalPrice + $charge, 2),
+            'finalTotalPrice' => round($totalPrice + $charge, 2)
+        ]);
+    }
+
+    public function checkoutStore(CheckoutRequest $request, PaymentService $paymentService)
+    {
+        $type = $request->payment_method == 'cash on delivery' ? 'offline' : 'online';
+
+        Session::put('billing_data', [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'division_id' => $request->division_id,
+            'district_id' => $request->district_id,
+            'state_id' => $request->state_id,
+            'address' => $request->address,
+            'post_code' => $request->post_code,
+            'notes' => $request->notes,
+            'payment_method' => $request->payment_method,
+            'payment_type' => $type,
+            'delivery_charge' => $request->delivery_charge_input ?? 0,
+            'total_amount' => $request->final_total_input ?? Cart::total(),
+        ]);
+
+        if ($request->payment_method == 'cash on delivery') {
+            $paymentService->orderStore();
+            toastr()->success('Order Completed successfully!');
+            return redirect()->route('home');
+        } elseif ($request->payment_method == 'paypal') {
+            return redirect()->route('paypal.payment');
+        } elseif ($request->payment_method == 'stripe') {
+            return redirect()->route('stripe.payment');
+        }
     }
 
     private function getSectionsTitles(): Collection
