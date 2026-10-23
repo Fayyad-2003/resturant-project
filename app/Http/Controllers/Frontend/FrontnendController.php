@@ -43,7 +43,7 @@ class FrontnendController extends Controller
 
     public function checkout()
     {
-        if (Cart::total() > 0) {
+        if (Cart::content()->count() > 0 || (float) str_replace(',', '', Cart::total()) > 0) {
             $alldivisions = DB::table('divisions')->where('status', '1')->orderBy('name', 'asc')->get();
             return view('frontend.pages.checkout.index', compact('alldivisions'));
         } else {

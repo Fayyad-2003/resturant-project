@@ -57,7 +57,7 @@
                             </h6>
                             <p class="total"><span>Total:</span> <span class="subtotal_price">0</span></p>
                         </div>
-                        <a class="common_btn" href="#">Checkout</a>
+                        <a class="common_btn" href="{{ route('checkout') }}">Checkout</a>
                     </div>
                 </div>
             </div>

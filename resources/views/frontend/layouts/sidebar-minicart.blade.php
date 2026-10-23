@@ -13,6 +13,6 @@
             <span>FoodPark<span class="subtotal_price" id="subtotal_price">0</span></span>
         </p>
         <a class="cart_view" href="{{ route('my.cart') }}"> view cart</a>
-        <a class="checkout">checkout</a>
+        <a class="checkout" href="{{ route('checkout') }}">checkout</a>
     </div>
 </div>
