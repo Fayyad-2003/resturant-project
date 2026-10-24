@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\ProductSizeAndOptionController;
@@ -52,4 +53,16 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->as('admi
 
     // ------------   Coupons Routes --------------------
     Route::resource('/coupons', CouponController::class);
+
+    // ------------   Orders Management Routes --------------------
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('/all-orders', 'allOrders')->name('orders.all');
+        Route::get('/pending-orders', 'pendingOrders')->name('orders.pending');
+        Route::get('/processing-orders', 'processingOrders')->name('orders.processing');
+        Route::get('/delivered-orders', 'deliveredOrders')->name('orders.delivered');
+        Route::get('/canceled-orders', 'canceledOrders')->name('orders.canceled');
+        Route::get('/order/details/{id}', 'viewOrder')->name('order.details');
+        Route::get('/order/approve/{id}', 'approveOrder')->name('order.approve');
+        Route::get('/order/cancel/{id}', 'cancelOrder')->name('order.cancel');
+    });
 });

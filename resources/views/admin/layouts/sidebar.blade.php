@@ -41,6 +41,30 @@
                 <li><a href="{{ route('admin.products.index') }}">Products</a></li>
             </ul>
         </li>
+
+        <li class="has-dropdown {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
+            <a href="javascript:void(0);" class="has-dropdown {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Manage Orders</span>
+            </a>
+            <ul class="dropdown-menu {{ request()->routeIs('admin.orders.*') ? 'show' : '' }}">
+                <li>
+                    <a class="{{ request()->routeIs('admin.orders.all') ? 'active' : '' }}" href="{{ route('admin.orders.all') }}">All Orders</a>
+                </li>
+                <li>
+                    <a class="{{ request()->routeIs('admin.orders.pending') ? 'active' : '' }}" href="{{ route('admin.orders.pending') }}">Pending Orders</a>
+                </li>
+                <li>
+                    <a class="{{ request()->routeIs('admin.orders.processing') ? 'active' : '' }}" href="{{ route('admin.orders.processing') }}">In Process Orders</a>
+                </li>
+                <li>
+                    <a class="{{ request()->routeIs('admin.orders.delivered') ? 'active' : '' }}" href="{{ route('admin.orders.delivered') }}">Delivered Orders</a>
+                </li>
+                <li>
+                    <a class="{{ request()->routeIs('admin.orders.canceled') ? 'active' : '' }}" href="{{ route('admin.orders.canceled') }}">Cancelled Orders</a>
+                </li>
+            </ul>
+        </li>
         <li>
             <a href="{{ route('admin.coupons.index') }}">
                 <i class="fas fa-tags"></i>
@@ -77,12 +101,6 @@
             <a href="#">
                 <i class="fas fa-utensils"></i>
                 <span>Manage Product</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="fas fa-shopping-cart"></i>
-                <span>Manage Orders</span>
             </a>
         </li>
 

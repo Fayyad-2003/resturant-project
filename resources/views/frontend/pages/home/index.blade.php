@@ -1,4 +1,6 @@
-@extends('frontend.layouts.master') @section('content')
+@extends('frontend.layouts.master')
+@section('title', 'Home')
+@section('content')
     @include('frontend.pages.home.components.slider')
     @include('frontend.pages.home.components.why-choose-us')
     @include('frontend.pages.home.components.offer-item')
