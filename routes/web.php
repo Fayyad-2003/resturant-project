@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\FrontnendController;
 use App\Http\Controllers\Frontend\ProfileController;
+use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontnendController::class, 'index'])->name('home');
@@ -42,6 +43,11 @@ Route::controller(FrontnendController::class)->group(function () {
     Route::get('/get/delivery/charge', 'getdeliverycharge')->name('get.delivery.charge');
 });
 
+// Wishlist all routes
+Route::controller(WishlistController::class)->group(function () {
+    Route::post('/wishlist/add', 'addWishlist')->name('wishlist.add');
+    Route::delete('/wishlist/remove/{id}', 'removeWishlist')->name('wishlist.remove')->middleware('auth');
+});
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/order/details/{id}', [DashboardController::class, 'orderDetails'])->name('order.details');
