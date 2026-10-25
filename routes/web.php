@@ -42,12 +42,10 @@ Route::controller(FrontnendController::class)->group(function () {
     Route::get('/get/delivery/charge', 'getdeliverycharge')->name('get.delivery.charge');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/order/details/{id}', [DashboardController::class, 'orderDetails'])->name('order.details');
+    Route::get('/order/track', [DashboardController::class, 'orderTrack'])->name('order.track');
     Route::put('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::put('/profile/password/update', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
 });

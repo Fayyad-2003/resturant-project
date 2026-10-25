@@ -110,8 +110,8 @@
                         <div class="fp__dashboard_menu">
                             <div class="dasboard_header">
                                 <div class="dasboard_header_img">
-                                    <img src="{{ auth()->user()->avatar }}" alt="user"
-                                        class="img-fluid w-100 photo_preview" id="photo_preview">
+                                    <img src="{{ auth()->user()->avatar }}" alt="user" class="img-fluid w-100 photo_preview"
+                                        id="photo_preview">
                                     <form action="#" method="post" class=" w-full" style="width: 100%;"
                                         enctype="multipart/form-data">
                                         @csrf
@@ -129,9 +129,8 @@
                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
                                 aria-orientation="vertical">
                                 <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
-                                    data-bs-target="#v-pills-home" type="button" role="tab"
-                                    aria-controls="v-pills-home" aria-selected="true"><span><i
-                                            class="fas fa-user"></i></span> Parsonal Info</button>
+                                    data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+                                    aria-selected="true"><span><i class="fas fa-user"></i></span> Parsonal Info</button>
 
                                 <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
                                     data-bs-target="#v-pills-profile" type="button" role="tab"
@@ -154,9 +153,9 @@
                                             class="fas fa-user-lock"></i></span> Change Password </button>
 
                                 <button class="nav-link w-full" id="v-pills-track-tab" data-bs-toggle="pill"
-                                    data-bs-target="#v-pills-track" type="button" role="tab"
-                                    aria-controls="v-pills-track" aria-selected="false"><span><i
-                                            class="fas fa-user-lock"></i></span> Track Order </button>
+                                    data-bs-target="#v-pills-track" type="button" role="tab" aria-controls="v-pills-track"
+                                    aria-selected="false"><span><i class="fas fa-user-lock"></i></span> Track Order
+                                </button>
 
                                 <form action="{{ route('logout') }}" method="post">
                                     @csrf
@@ -182,19 +181,19 @@
                                                 <div class="col-xl-4 col-sm-6 col-md-4">
                                                     <div class="fp__dsahboard_overview_item">
                                                         <span class="icon"><i class="fas fa-shopping-basket"></i></span>
-                                                        <h4>total order <span>(0)</span></h4>
+                                                        <h4>total order <span>{{ $totalOrders ?? 0 }}</span></h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-4 col-sm-6 col-md-4">
                                                     <div class="fp__dsahboard_overview_item green">
                                                         <span class="icon"><i class="fas fa-shopping-basket"></i></span>
-                                                        <h4>Completed <span>(0)</span></h4>
+                                                        <h4>Completed <span>{{ $completedOrders ?? 0 }}</span></h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-4 col-sm-6 col-md-4">
                                                     <div class="fp__dsahboard_overview_item red">
                                                         <span class="icon"><i class="fas fa-shopping-basket"></i></span>
-                                                        <h4>cancel <span>(0)</span></h4>
+                                                        <h4>cancel <span>{{ $canceledOrders }}</span></h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -249,14 +248,47 @@
                                                 <table class="table">
                                                     <tbody>
                                                         <tr class="t_header">
-                                                            <th>Order</th>
+                                                            <th>Order No</th>
                                                             <th>Date</th>
                                                             <th>Status</th>
-                                                            <th>Paid/Unpad</th>
+                                                            <th>Payment</th>
                                                             <th>Amount</th>
                                                             <th>Action</th>
                                                         </tr>
-                                                        {{-- Orders will be listed here dynamically --}}
+
+                                                        @forelse($orders as $order)
+                                                            <tr>
+                                                                <td>
+                                                                    <h5>#{{ $order->order_number }}</h5>
+                                                                </td>
+                                                                <td>
+                                                                    <p>{{ \Carbon\Carbon::parse($order->created_at)->format('d M Y') }}
+                                                                    </p>
+                                                                </td>
+                                                                <td>
+                                                                    @if ($order->status == 'pending')
+                                                                        <span class="badge bg-warning text-dark">Pending</span>
+                                                                    @elseif ($order->status == 'progress')
+                                                                        <span class="badge bg-info text-white">In Process</span>
+                                                                    @elseif ($order->status == 'delivered')
+                                                                        <span class="badge bg-success text-white">Delivered</span>
+                                                                    @else
+                                                                        <span class="badge bg-danger text-white">Cancelled</span>
+                                                                    @endif
+                                                                </td>
+
+                                                                <td>
+                                                                    <a href="view_invoice common_btn btn_sm"
+                                                                        href="{{ route('order.details', $order->id) }}">View
+                                                                        Invoice</a>
+                                                                </td>
+                                                            </tr>
+                                                        @empty
+                                                            <tr>
+                                                                <td colspan="6" class="text-center text-muted py-4">No orders
+                                                                    placed yet.</td>
+                                                            </tr>
+                                                        @endforelse
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -365,11 +397,11 @@
 
 @push('front_script')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             console.log('Dashboard script loaded');
 
             // Handle Edit/Cancel button click for personal info
-            $('.dash_info_btn').on('click', function(e) {
+            $('.dash_info_btn').on('click', function (e) {
                 e.preventDefault();
                 console.log('Edit button clicked');
 
@@ -395,6 +427,36 @@
                     $infoEdit.slideDown(300);
                     $editBtn.hide();
                     $cancelBtn.show();
+                }
+            });
+        });
+
+                $(document).on('click', '#track_order_submit', function () {
+            let orderNumber = $('#order_number').val().trim();
+            if (!orderNumber) {
+                toastr.warning('Please enter an order number!');
+                return;
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('order.track') }}",
+                data: { order_number: orderNumber },
+                beforeSend: function () {
+                    $('#track_order_submit').prop('disabled', true).text('Tracking....');
+                },
+                success: function (response) {
+                    $('#track_order_submit').prop('disabled', false).text('Track');
+                    if (response.error) {
+                        toastr.error(response.error);
+                        $('#order_tracking_data').html('');
+                    } else {
+                        $('#order_tracking_data').html(response);
+                    }
+                },
+                error: function () {
+                    $('#track_order_submit').prop('disabled', false).text('Track');
+                    toastr.error('Error tracking order, please try again.');
                 }
             });
         });
