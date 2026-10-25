@@ -278,8 +278,13 @@
                                                                 </td>
 
                                                                 <td>
-                                                                    <a href="view_invoice common_btn btn_sm"
-                                                                        href="{{ route('order.details', $order->id) }}">View
+                                                                    {{ $order->payment_type }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $order->amount }}
+                                                                </td>
+                                                                <td>
+                                                                    <a href="{{ route('order.details', $order->id) }}">View
                                                                         Invoice</a>
                                                                 </td>
                                                             </tr>
@@ -295,19 +300,67 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="tab-pane fade " id="v-pills-messages2" role="tabpanel"
-                                    aria-labelledby="v-pills-messages-tab2">
+                                <div class="tab-pane fade " id="v-pills-messages2" role="tabpanel" aria-labelledby="v-pills-messages-tab2">
                                     <div class="fp_dashboard_body">
-                                        <h3>wishlist</h3>
+                                        <h3>Wishlist</h3>
                                         <div class="fp__dashoard_wishlist">
                                             <div class="row">
-                                                {{-- Wishlist items will be listed here dynamically --}}
+                                                @forelse ($wishlists as $item)
+                                                    @if ($item->model)
+                                                        <div class="col-xl-4 col-sm-6 mb-4">
+                                                            <div class="fp__menu_item">
+                                                                <div class="fp__menu_item_img">
+                                                                    <img src="{{ asset($item->model->main_image) }}" alt="{{ $item->model->name }}"
+                                                                        class="img-fluid w-100" />
+                                                                    @if ($item->model->category)
+                                                                        <a class="category" href="javascript:;">{{ $item->model->category->name }}</a>
+                                                                    @endif
+                                                                </div>
+                                                                <div class="fp__menu_item_text">
+                                                                    <a class="title" href="javascript:;">{{ $item->model->name }}</a>
+                                                                    @if ($item->model->offer_price > 0)
+                                                                        <h5 class="price">${{ number_format($item->model->offer_price, 2) }}
+                                                                            <del>${{ number_format($item->model->price, 2) }}</del>
+                                                                        </h5>
+                                                                    @else
+                                                                        <h5 class="price">${{ number_format($item->model->price, 2) }}</h5>
+                                                                    @endif
+                                                                    <ul class="d-flex flex-wrap justify-content-center">
+                                                                        <!-- Quick View / Add to Cart Modal -->
+                                                                        <li>
+                                                                            <a href="javascript:;" onclick="loadProductModal('{{ $item->model->id }}')"
+                                                                                title="Add to Cart">
+                                                                                <i class="fas fa-shopping-basket"></i>
+                                                                            </a>
+                                                                        </li>
+                                                                        <!-- Remove from Wishlist -->
+                                                                        <li>
+                                                                            <form action="{{ route('wishlist.remove', $item->id) }}" method="POST"
+                                                                                id="remove-wishlist-{{ $item->id }}" style="display: none;">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                            </form>
+                                                                            <a href="javascript:;"
+                                                                                onclick="if(confirm('Are you sure you want to remove this item?')) { document.getElementById('remove-wishlist-{{ $item->id }}').submit(); }"
+                                                                                title="Remove from Wishlist">
+                                                                                <i class="far fa-trash-alt text-danger"></i>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @empty
+                                                    <div class="col-12 text-center py-5">
+                                                        <i class="far fa-heart fa-3x text-muted mb-3"></i>
+                                                        <p class="text-muted">Your wishlist is currently empty.</p>
+                                                    </div>
+                                                @endforelse
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
                                     aria-labelledby="v-pills-messages-tab">
                                     <div class="fp_dashboard_body dashboard_review">
@@ -431,7 +484,7 @@
             });
         });
 
-                $(document).on('click', '#track_order_submit', function () {
+        $(document).on('click', '#track_order_submit', function () {
             let orderNumber = $('#order_number').val().trim();
             if (!orderNumber) {
                 toastr.warning('Please enter an order number!');

@@ -6,30 +6,30 @@
         $.ajax({
             type: "GET",
             url: "{{ url('/product-quick-view') }}/" + productId,
-            success: function(response) {
+            success: function (response) {
                 $('#modal_content').html(response);
                 $('#cartModal').modal('show');
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error("Failed to load product modal", error);
             }
         });
     }
 
     // 2. Dynamic Price Calculator inside Quick View Modal
-    $(document).ready(function() {
+    $(document).ready(function () {
         // When size changes
-        $(document).on('change', '.product_size_radio', function() {
+        $(document).on('change', '.product_size_radio', function () {
             calculateTotalPrice();
         });
 
         // When option checkbox changes
-        $(document).on('change', '.product_option_checkbox', function() {
+        $(document).on('change', '.product_option_checkbox', function () {
             calculateTotalPrice();
         });
 
         // Quantity Increment
-        $(document).on('click', '.qty_increment', function() {
+        $(document).on('click', '.qty_increment', function () {
             let qtyInput = $('#modal_quantity');
             let currentQty = parseInt(qtyInput.val()) || 1;
             qtyInput.val(currentQty + 1);
@@ -37,7 +37,7 @@
         });
 
         // Quantity Decrement
-        $(document).on('click', '.qty_decrement', function() {
+        $(document).on('click', '.qty_decrement', function () {
             let qtyInput = $('#modal_quantity');
             let currentQty = parseInt(qtyInput.val()) || 1;
             if (currentQty > 1) {
@@ -58,7 +58,7 @@
                 sizePrice = parseFloat(selectedSize.data('price')) || 0;
             }
 
-            $('.product_option_checkbox:checked').each(function() {
+            $('.product_option_checkbox:checked').each(function () {
                 optionsPrice += parseFloat($(this).data('price')) || 0;
             });
 
@@ -67,7 +67,7 @@
         }
 
         // 3. Add to Cart via AJAX (Exact Complete Version Flow)
-        $(document).off('submit', '.cart_form').on('submit', '.cart_form', function(e) {
+        $(document).off('submit', '.cart_form').on('submit', '.cart_form', function (e) {
             e.preventDefault();
             var form = $(this);
             var formData = form.serialize();
@@ -77,10 +77,10 @@
                 url: "{{ route('add.to.cart') }}",
                 data: formData,
                 dataType: "json",
-                beforeSend: function() {
+                beforeSend: function () {
                     $('#add_to_cart').prop('disabled', true).text('Adding...');
                 },
-                success: function(response) {
+                success: function (response) {
                     cartCount();
                     minicart();
                     if (typeof myCartContent === 'function') {
@@ -89,18 +89,18 @@
                     $('#cartModal').modal('hide');
                     toastr.success(response);
                 },
-                error: function(xhr) {
+                error: function (xhr) {
                     console.error("Add to cart error:", xhr);
                     toastr.error("Failed to add product to cart.");
                 },
-                complete: function() {
+                complete: function () {
                     $('#add_to_cart').prop('disabled', false).html('<i class="fas fa-shopping-basket"></i> Add to Cart');
                 }
             });
         });
 
         // Direct click fallback for the Add to Cart button
-        $(document).off('click', '#add_to_cart').on('click', '#add_to_cart', function(e) {
+        $(document).off('click', '#add_to_cart').on('click', '#add_to_cart', function (e) {
             e.preventDefault();
             $(this).closest('form').submit();
         });
@@ -112,7 +112,7 @@
             type: "GET",
             url: "{{ route('mini.cart.content') }}",
             dataType: "html",
-            success: function(response) {
+            success: function (response) {
                 $('#minicart_products').html(response);
             }
         });
@@ -125,7 +125,7 @@
             type: "GET",
             url: "{{ route('cart.count') }}",
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 $('.cart_count').html(response.cartcount);
                 $('.subtotal_price').html(response.carttotal);
             }
@@ -143,26 +143,26 @@
                 _token: "{{ csrf_token() }}"
             },
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 cartCount();
                 minicart();
                 myCartContent();
                 if (typeof couponCalculation === 'function') couponCalculation();
                 toastr.success(response);
             },
-            error: function() {
+            error: function () {
                 toastr.error("Failed to remove item.");
             }
         });
     }
 
     // Load Full Cart Page Content
-    function myCartContent(){
+    function myCartContent() {
         $.ajax({
             type: "GET",
             url: "{{ route('my.cart.content') }}",
             dataType: "html",
-            success: function(response) {
+            success: function (response) {
                 $('#my_cart_page_content').html(response);
             }
         });
@@ -179,7 +179,7 @@
                 _token: "{{ csrf_token() }}"
             },
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 cartCount();
                 minicart();
                 myCartContent();
@@ -199,7 +199,7 @@
                 _token: "{{ csrf_token() }}"
             },
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 cartCount();
                 minicart();
                 myCartContent();
@@ -218,12 +218,36 @@
                 _token: "{{ csrf_token() }}"
             },
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 cartCount();
                 minicart();
                 myCartContent();
                 if (typeof couponCalculation === 'function') couponCalculation();
                 toastr.success(response);
+            }
+        });
+    }
+
+    // Add to Wishlist via AJAX
+    function addToWishlist(productId) {
+        $.ajax({
+            type: "POST",
+            url: "{{ route('wishlist.add') }}",
+            data: {
+                id: productId,
+                _token: "{{ csrf_token() }}"
+            },
+            dataType: "json",
+            success: function (response) {
+                if (response.status === 'success') {
+                    toastr.success(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Wishlist error: ', error);
+                toastr.error('An error occurred. Please try again.');
             }
         });
     }

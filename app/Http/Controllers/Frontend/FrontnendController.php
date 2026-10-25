@@ -9,11 +9,13 @@ use App\Models\Product;
 use App\Models\SectionTitle;
 use App\Models\Slider;
 use App\Models\WhyChooseUs;
+use App\Models\Wishlist;
 use App\Services\PaymentService;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -21,13 +23,23 @@ class FrontnendController extends Controller
 {
     public function index(): View
     {
+        $userId = Auth::id();
         $sliders = Slider::where('status', 1)->get();
         $sectionsTitles = $this->getSectionsTitles();
         $whyChooseUs = WhyChooseUs::where('status', 1)->get();
         $categories = Category::where('status', 1)->where('show_at_home', 1)->get();
         $products = Product::where('status', 1)->with(['category', 'sizes', 'options'])->latest()->take(12)->get();
 
-        return view('frontend.pages.home.index', compact('sliders', 'sectionsTitles', 'whyChooseUs', 'categories', 'products'));
+        $wishlists = Wishlist::with('model')->where('user_id', $userId)->latest()->get();
+
+        return view('frontend.pages.home.index', compact(
+            'sliders',
+            'sectionsTitles',
+            'whyChooseUs',
+            'categories',
+            'products',
+            'wishlists'
+        ));
     }
 
     /**
