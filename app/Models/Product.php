@@ -43,16 +43,28 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function sizes(): HasMany {
+    public function sizes(): HasMany
+    {
         return $this->hasMany(ProductSize::class);
     }
-    
-    public function options(): HasMany {
+
+    public function options(): HasMany
+    {
         return $this->hasMany(ProductOption::class);
+    }
+
+    public function gallery(): HasMany
+    {
+        return $this->hasMany(ProductGallery::class);
     }
 
     public function wishlists(): MorphMany
     {
         return $this->morphMany(Wishlist::class, 'model');
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'product_id', 'id');
     }
 }

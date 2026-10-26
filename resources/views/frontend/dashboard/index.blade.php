@@ -367,7 +367,38 @@
                                         <h3>review</h3>
                                         <div class="fp__review_area">
                                             <div class="fp__comment pt-0 mt_20">
-                                                {{-- Reviews will be listed here dynamically --}}
+                                                @forelse ($myreviews as $review)
+                                                    <div class="fp__single_comment m-0 border-0 mb-3 p-3 bg-light rounded">
+                                                        <img src="{{ asset($review->product->main_image) }}"
+                                                            alt="{{ $review->product->name }}" class="img-fluid" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px;">
+                                                        <div class="fp__single_comm_text">
+                                                            <h3><a href="{{ route('product.details', $review->product->slug) }}">{{ $review->product->name }}</a>
+                                                                <span>{{ $review->created_at->format('d M Y') }}</span>
+                                                            </h3>
+                                                            <span class="rating">
+                                                                @for ($i = 1; $i <= 5; $i++)
+                                                                    @if ($i <= $review->rating)
+                                                                        <i class="fas fa-star text-warning"></i>
+                                                                    @else
+                                                                        <i class="far fa-star text-muted"></i>
+                                                                    @endif
+                                                                @endfor
+                                                                <b>({{ $review->rating }}/5)</b>
+                                                            </span>
+                                                            <p class="mt-2">{{ $review->message }}</p>
+                                                            @if ($review->status == 'active')
+                                                                <span class="badge bg-success">Active</span>
+                                                            @else
+                                                                <span class="badge bg-secondary">Pending Approval</span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                @empty
+                                                    <div class="text-center py-5">
+                                                        <i class="far fa-star fa-3x text-muted mb-3"></i>
+                                                        <p class="text-muted">You have not submitted any reviews yet.</p>
+                                                    </div>
+                                                @endforelse
                                             </div>
                                         </div>
                                     </div>

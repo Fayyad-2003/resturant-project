@@ -46,7 +46,7 @@ class FrontnendController extends Controller
      * Load product quick view modal via AJAX.
      */
 
-    public function productQuickView(string $id = null)
+    public function productQuickView(?string $id = null)
     {
         $productId = $id ?? request('id');
         $product = Product::with(['sizes', 'options'])->findOrFail($productId);
@@ -140,5 +140,28 @@ class FrontnendController extends Controller
         ];
 
         return SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
+    }
+
+    /**
+     * Show product details and its reviews
+     */
+
+    public function productDetails(string $slug)
+    {
+        $product = Product::with(['category', 'sizes', 'options', 'gallery', 'reviews.user'])
+            ->withCount([
+                'reviews as active_reviews_count' => function ($q) {
+                    $q->where('status', 'active');
+                }
+            ])->withAvg([
+                    'reviews as active_reviews_avg' => function ($q) {
+                        $q->where('status', 'active');
+                    }
+                ], 'rating')->where('slug', $slug)->where('status', 1)->firstOrFail();
+
+        $relatedProducts = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->where('status', 1)->take(4)->get();
+        $reviews = $product->reviews()->where('status', 'active')->with('user')->latest()->get();
+
+        return view('frontend.pages.product-details.index', compact('product', 'relatedProducts', 'reviews'));
     }
 }

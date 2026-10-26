@@ -52,7 +52,7 @@
                                 <i class="fas fa-star-half-alt"></i>
                                 <span>(5.0)</span>
                             </p>
-                            <a class="title" href="javascript:;">{{ $product->name }}</a>
+                            <a class="title" href="{{ route('product.details', $product->slug) }}">{{ $product->name }}</a>
 
                             @if ($product->offer_price > 0)
                                 <h5 class="price">${{ number_format($product->offer_price, 2) }}
@@ -66,8 +66,7 @@
                             <ul class="d-flex flex-wrap justify-content-center">
                                 <!-- Quick View Button triggers modal via AJAX -->
                                 <li>
-                                    <a href="javascript:;" onclick="loadProductModal('{{ $product->id }}')"
-                                        title="Quick View / Add to Cart">
+                                    <a href="javascript:;" onclick="loadProductModal('{{ $product->id }}')" title="Quick View / Add to Cart">
                                         <i class="fas fa-shopping-basket"></i>
                                     </a>
                                 </li>
@@ -80,7 +79,7 @@
                                 </li>
 
                                 <li>
-                                    <a href="javascript:;" onclick="loadProductModal('{{ $product->id }}')"
+                                    <a href="{{ route('product.details', $product->slug) }}"
                                         title="View Details">
                                         <i class="far fa-eye"></i>
                                     </a>
