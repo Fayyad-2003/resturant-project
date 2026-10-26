@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
         \App\Models\Product::factory(10)->create();
         $this->call(ChefSeeder::class);
+        $this->call(AdvertisementSeeder::class);
     }
 }

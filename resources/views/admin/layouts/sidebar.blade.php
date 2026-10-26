@@ -87,8 +87,8 @@
                 <span>Testimonial</span>
             </a>
         </li>
-        <li>
-            <a href="#">
+        <li class="{{ request()->routeIs('admin.advertisements.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.advertisements.index') }}">
                 <i class="fas fa-ad"></i>
                 <span>Advertisement</span>
             </a>

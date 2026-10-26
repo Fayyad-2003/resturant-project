@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\CheckoutRequest;
+use App\Models\Advertisement;
 use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Chef;
@@ -35,6 +36,14 @@ class FrontnendController extends Controller
         $wishlists = Wishlist::with('model')->where('user_id', $userId)->latest()->get();
         $latestBlogs = BlogPost::with(['category', 'user'])->where('status', 1)->latest()->take(3)->get();
         $chefs = Chef::where('status', 1)->where('show_at_home', 1)->get();
+        $dailyOffers = Product::with(['category', 'sizes', 'options'])
+            ->where('status', 1)
+            ->whereNotNull('offer_price')
+            ->where('offer_price', '>', 0)
+            ->latest()
+            ->take(10)
+            ->get();
+        $advertisements = Advertisement::where('status', 1)->latest()->get();
 
         return view('frontend.pages.home.index', compact(
             'sliders',
@@ -44,7 +53,9 @@ class FrontnendController extends Controller
             'products',
             'wishlists',
             'latestBlogs',
-            'chefs'
+            'chefs',
+            'dailyOffers',
+            'advertisements'
         ));
     }
 
