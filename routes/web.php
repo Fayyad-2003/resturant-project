@@ -5,6 +5,7 @@ use App\Http\Controllers\Frontend\CouponController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\FrontnendController;
 use App\Http\Controllers\Frontend\ProfileController;
+use App\Http\Controllers\Frontend\ReservationController;
 use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\StripePaymentController;
 use App\Http\Controllers\Frontend\WishlistController;
@@ -51,6 +52,9 @@ Route::controller(WishlistController::class)->group(function () {
     Route::post('/wishlist/add', 'addWishlist')->name('wishlist.add');
     Route::delete('/wishlist/remove/{id}', 'removeWishlist')->name('wishlist.remove')->middleware('auth');
 });
+
+Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/order/details/{id}', [DashboardController::class, 'orderDetails'])->name('order.details');

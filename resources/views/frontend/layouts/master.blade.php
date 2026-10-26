@@ -110,11 +110,13 @@
     <!-- sticky sidebar js -->
     <script src="{{ asset('frontend') }}/js/sticky_sidebar.js"></script>
     <!-- wow js -->
-    {{-- <script src="{{ asset('frontend') }}/js/wow.min.js"></script> --}}
+    {{--
+    <script src="{{ asset('frontend') }}/js/wow.min.js"></script> --}}
     <!-- ex zoom js -->
     <script src="{{ asset('frontend') }}/js/jquery.exzoom.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{-- <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script> --}}
+    {{--
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
     <!-- Setup CSRF Token for jQuery AJAX -->
@@ -142,6 +144,7 @@
 
     {{-- Include Frontend Layout Components --}}
     @include('frontend.layouts.sidebar-minicart')
+    @include('frontend.layouts.partials.reservation-modal')
     @include('frontend.layouts.global')
 
     @stack('front_script')

@@ -252,4 +252,42 @@
         });
     }
 
+    // Handle Table Reservation via AJAX
+    $(document).on('submit', '#reservation_form', function (e) {
+        e.preventDefault();
+        var form = $(this);
+        var btn = $('#reservation_btn');
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('reservation.store') }}",
+            data: form.serialize(),
+            dataType: "json",
+            beforeSend: function () {
+                btn.prop('disabled', true).text('Booking...');
+            },
+            success: function (response) {
+                if (response.status === 'success') {
+                    toastr.success(response.message);
+                    form[0].reset();
+                    $('#reservationModal').modal('hide');
+                }
+            },
+            error: function (xhr) {
+                if (xhr.status === 422) {
+                    var errors = xhr.responseJSON.errors;
+                    $.each(errors, function (key, val) {
+                        toastr.error(val[0]);
+                    });
+                } else {
+                    toastr.error('Something went wrong. Please try again.');
+                }
+            },
+            complete: function () {
+                btn.prop('disabled', false).text('Confirm Reservation');
+            }
+        });
+    });
+
+
 </script>
