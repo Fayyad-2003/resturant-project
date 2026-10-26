@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Reservation;
 use App\Models\Review;
+use App\Models\Testimonial;
 use App\Models\Wishlist;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class DashboardController extends Controller
         $wishlists = Wishlist::with('model')->where('user_id', $userId)->latest()->get();
         $myreviews = Review::with('product')->where('user_id', $userId)->latest()->get();
         $reservations = Reservation::where('user_id', $userId)->latest()->get();
+        $myTestimonials = Testimonial::where('user_id', $userId)->latest()->get();
 
         return view('frontend.dashboard.index', compact(
             'orders',
@@ -31,7 +33,8 @@ class DashboardController extends Controller
             'canceledOrders',
             'wishlists',
             'myreviews',
-            'reservations'
+            'reservations',
+            'myTestimonials'
         ));
     }
 

@@ -13,7 +13,7 @@
                     <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link Admin User">about</a>
+                    <a class="nav-link {{ request()->routeIs('about*') ? 'active' : '' }}" href="{{ route('about') }}">about</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link Admin User">menu</a>

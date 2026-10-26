@@ -368,7 +368,46 @@
                                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
                                     aria-labelledby="v-pills-messages-tab">
                                     <div class="fp_dashboard_body dashboard_review">
-                                        <h3>review</h3>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h3 class="mb-0">Customer Reviews & Testimonials</h3>
+                                            <button type="button" class="btn btn-sm btn-warning text-white fw-bold px-3 py-2" data-bs-toggle="modal" data-bs-target="#dashboardTestimonialModal">
+                                                <i class="fas fa-star me-1"></i> Give Restaurant Feedback
+                                            </button>
+                                        </div>
+
+                                        @if(isset($myTestimonials) && $myTestimonials->count() > 0)
+                                            <div class="mb-4">
+                                                <h5 class="text-secondary border-bottom pb-2 mb-3"><i class="fas fa-comment-alt me-1 text-warning"></i> My Restaurant Testimonials</h5>
+                                                @foreach ($myTestimonials as $t)
+                                                    <div class="p-3 bg-white border rounded shadow-sm mb-3">
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <span class="text-warning me-2">
+                                                                    @for($i=1; $i<=5; $i++)
+                                                                        @if($i <= $t->rating)
+                                                                            <i class="fas fa-star"></i>
+                                                                        @else
+                                                                            <i class="far fa-star text-muted"></i>
+                                                                        @endif
+                                                                    @endfor
+                                                                </span>
+                                                                <small class="text-muted">{{ $t->created_at->format('d M Y') }}</small>
+                                                            </div>
+                                                            <div>
+                                                                @if ($t->status)
+                                                                    <span class="badge bg-success">Approved / Live</span>
+                                                                @else
+                                                                    <span class="badge bg-secondary">Pending Approval</span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                        <p class="mt-2 mb-0 text-dark">{{ $t->details }}</p>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @endif
+
+                                        <h5 class="text-secondary border-bottom pb-2 mb-3"><i class="fas fa-utensils me-1 text-warning"></i> My Food Product Reviews</h5>
                                         <div class="fp__review_area">
                                             <div class="fp__comment pt-0 mt_20">
                                                 @forelse ($myreviews as $review)
@@ -521,6 +560,44 @@
             </div>
         </div>
     </section>
+    <!-- Testimonial Modal inside Dashboard -->
+    <div class="modal fade" id="dashboardTestimonialModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-warning text-white">
+                    <h5 class="modal-title text-white fw-bold"><i class="fas fa-star me-2"></i> Share Restaurant Feedback</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('testimonial.store') }}" method="POST">
+                    @csrf
+                    <div class="modal-body p-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Overall Rating</label>
+                            <select name="rating" class="form-select form-control" required>
+                                <option value="5">⭐⭐⭐⭐⭐ 5 Stars - Exceptional!</option>
+                                <option value="4">⭐⭐⭐⭐ 4 Stars - Very Good</option>
+                                <option value="3">⭐⭐⭐ 3 Stars - Average</option>
+                                <option value="2">⭐⭐ 2 Stars - Below Average</option>
+                                <option value="1">⭐ 1 Star - Poor</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Tagline / Designation (Optional)</label>
+                            <input type="text" name="designation" class="form-control" placeholder="e.g. Regular Foodie, Family Visitor, Pasta Lover">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Feedback Details <span class="text-danger">*</span></label>
+                            <textarea name="details" rows="4" class="form-control" placeholder="Tell us about your dining experience, service, and atmosphere..." required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-warning text-white fw-bold px-4">Submit Feedback</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!--DASHBOARD END-->
 
 @endsection

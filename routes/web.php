@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\FrontnendController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\ReservationController;
 use App\Http\Controllers\Frontend\ReviewController;
+use App\Http\Controllers\Frontend\TestimonialController;
 use App\Http\Controllers\Frontend\StripePaymentController;
 use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,7 @@ Route::get('/', [FrontnendController::class, 'index'])->name('home');
 Route::get('/product-quick-view/{id?}', [FrontnendController::class, 'productQuickView'])->name('product-quick-view');
 Route::get('/product/{slug}', [FrontnendController::class, 'productDetails'])->name('product.details');
 Route::get('/chefs', [FrontnendController::class, 'chefs'])->name('chefs');
+Route::get('/about', [FrontnendController::class, 'about'])->name('about');
 
 
 // cart all routes
@@ -70,6 +72,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/order/track', [DashboardController::class, 'orderTrack'])->name('order.track');
     // Submit Review 
     Route::post('/review/store', [ReviewController::class, 'store'])->name('review.store');
+    // Submit Restaurant Testimonial
+    Route::post('/testimonial/store', [TestimonialController::class, 'store'])->name('testimonial.store');
     Route::put('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::put('/profile/password/update', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
     // Stripe Payment routes 

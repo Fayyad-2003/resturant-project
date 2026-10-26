@@ -12,6 +12,7 @@ use App\Models\Counter;
 use App\Models\Product;
 use App\Models\SectionTitle;
 use App\Models\Slider;
+use App\Models\Testimonial;
 use App\Models\WhyChooseUs;
 use App\Models\Wishlist;
 use App\Services\PaymentService;
@@ -46,6 +47,7 @@ class FrontnendController extends Controller
             ->get();
         $advertisements = Advertisement::where('status', 1)->latest()->get();
         $counters = Counter::where('status', 1)->take(4)->get();
+        $testimonials = Testimonial::where('status', 1)->latest()->get();
 
         return view('frontend.pages.home.index', compact(
             'sliders',
@@ -58,7 +60,26 @@ class FrontnendController extends Controller
             'chefs',
             'dailyOffers',
             'advertisements',
-            'counters'
+            'counters',
+            'testimonials'
+        ));
+    }
+
+    /**
+     * Display about us page.
+     */
+    public function about(): View
+    {
+        $whyChooseUs = WhyChooseUs::where('status', 1)->get();
+        $chefs = Chef::where('status', 1)->where('show_at_home', 1)->get();
+        $counters = Counter::where('status', 1)->take(4)->get();
+        $testimonials = Testimonial::where('status', 1)->latest()->get();
+
+        return view('frontend.pages.about.index', compact(
+            'whyChooseUs',
+            'chefs',
+            'counters',
+            'testimonials'
         ));
     }
 

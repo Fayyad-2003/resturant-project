@@ -43,27 +43,34 @@
         </li>
 
         <li class="has-dropdown {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
-            <a href="javascript:void(0);" class="has-dropdown {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
+            <a href="javascript:void(0);"
+                class="has-dropdown {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
                 <i class="fas fa-shopping-cart"></i>
                 <span>Manage Orders</span>
             </a>
             <ul class="dropdown-menu {{ request()->routeIs('admin.orders.*') ? 'show' : '' }}">
                 <li>
-                    <a class="{{ request()->routeIs('admin.orders.all') ? 'active' : '' }}" href="{{ route('admin.orders.all') }}">All Orders</a>
+                    <a class="{{ request()->routeIs('admin.orders.all') ? 'active' : '' }}"
+                        href="{{ route('admin.orders.all') }}">All Orders</a>
                 </li>
                 <li>
-                    <a class="{{ request()->routeIs('admin.orders.pending') ? 'active' : '' }}" href="{{ route('admin.orders.pending') }}">Pending Orders</a>
+                    <a class="{{ request()->routeIs('admin.orders.pending') ? 'active' : '' }}"
+                        href="{{ route('admin.orders.pending') }}">Pending Orders</a>
                 </li>
                 <li>
-                    <a class="{{ request()->routeIs('admin.orders.processing') ? 'active' : '' }}" href="{{ route('admin.orders.processing') }}">In Process Orders</a>
+                    <a class="{{ request()->routeIs('admin.orders.processing') ? 'active' : '' }}"
+                        href="{{ route('admin.orders.processing') }}">In Process Orders</a>
                 </li>
                 <li>
-                    <a class="{{ request()->routeIs('admin.orders.delivered') ? 'active' : '' }}" href="{{ route('admin.orders.delivered') }}">Delivered Orders</a>
+                    <a class="{{ request()->routeIs('admin.orders.delivered') ? 'active' : '' }}"
+                        href="{{ route('admin.orders.delivered') }}">Delivered Orders</a>
                 </li>
                 <li>
-                    <a class="{{ request()->routeIs('admin.orders.canceled') ? 'active' : '' }}" href="{{ route('admin.orders.canceled') }}">Cancelled Orders</a>
+                    <a class="{{ request()->routeIs('admin.orders.canceled') ? 'active' : '' }}"
+                        href="{{ route('admin.orders.canceled') }}">Cancelled Orders</a>
                 </li>
-            </ul>        </li>
+            </ul>
+        </li>
 
         <li class="{{ request()->routeIs('admin.reservations.*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.reservations.index') }}">
@@ -98,20 +105,24 @@
                 <i class="fas fa-calculator"></i>
                 <span>Counters & Stats</span>
             </a>
-        </li>        <li class="has-dropdown {{ request()->routeIs('admin.blog-*') ? 'active' : '' }}">
+        </li>
+        <li class="has-dropdown {{ request()->routeIs('admin.blog-*') ? 'active' : '' }}">
             <a href="javascript:void(0);" class="has-dropdown {{ request()->routeIs('admin.blog-*') ? 'active' : '' }}">
                 <i class="fas fa-newspaper"></i>
                 <span>Manage Blog</span>
             </a>
             <ul class="dropdown-menu {{ request()->routeIs('admin.blog-*') ? 'show' : '' }}">
                 <li>
-                    <a class="{{ request()->routeIs('admin.blog-categories.*') ? 'active' : '' }}" href="{{ route('admin.blog-categories.index') }}">Categories</a>
+                    <a class="{{ request()->routeIs('admin.blog-categories.*') ? 'active' : '' }}"
+                        href="{{ route('admin.blog-categories.index') }}">Categories</a>
                 </li>
                 <li>
-                    <a class="{{ request()->routeIs('admin.blog-posts.index') ? 'active' : '' }}" href="{{ route('admin.blog-posts.index') }}">All Articles</a>
+                    <a class="{{ request()->routeIs('admin.blog-posts.index') ? 'active' : '' }}"
+                        href="{{ route('admin.blog-posts.index') }}">All Articles</a>
                 </li>
                 <li>
-                    <a class="{{ request()->routeIs('admin.blog-posts.create') ? 'active' : '' }}" href="{{ route('admin.blog-posts.create') }}">Create Article</a>
+                    <a class="{{ request()->routeIs('admin.blog-posts.create') ? 'active' : '' }}"
+                        href="{{ route('admin.blog-posts.create') }}">Create Article</a>
                 </li>
             </ul>
         </li>

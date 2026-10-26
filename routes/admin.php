@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\ChefController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
 use Illuminate\Support\Facades\Route;
 
@@ -91,4 +92,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->as('admi
 
     // ------------   Counters Routes --------------------
     Route::resource('/counters', CounterController::class);
+
+    // ------------   Testimonials Routes --------------------
+    Route::post('/testimonials/toggle-status/{id}', [TestimonialController::class, 'toggleStatus'])->name('testimonials.toggle-status');
+    Route::resource('/testimonials', TestimonialController::class);
 });
