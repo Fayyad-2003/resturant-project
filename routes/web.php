@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FrontnendController::class, 'index'])->name('home');
 Route::get('/product-quick-view/{id?}', [FrontnendController::class, 'productQuickView'])->name('product-quick-view');
 Route::get('/product/{slug}', [FrontnendController::class, 'productDetails'])->name('product.details');
+Route::get('/chefs', [FrontnendController::class, 'chefs'])->name('chefs');
 
 
 // cart all routes

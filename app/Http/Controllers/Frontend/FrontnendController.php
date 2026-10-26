@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\CheckoutRequest;
 use App\Models\BlogPost;
 use App\Models\Category;
+use App\Models\Chef;
 use App\Models\Product;
 use App\Models\SectionTitle;
 use App\Models\Slider;
@@ -33,6 +34,7 @@ class FrontnendController extends Controller
 
         $wishlists = Wishlist::with('model')->where('user_id', $userId)->latest()->get();
         $latestBlogs = BlogPost::with(['category', 'user'])->where('status', 1)->latest()->take(3)->get();
+        $chefs = Chef::where('status', 1)->where('show_at_home', 1)->get();
 
         return view('frontend.pages.home.index', compact(
             'sliders',
@@ -41,8 +43,18 @@ class FrontnendController extends Controller
             'categories',
             'products',
             'wishlists',
-            'latestBlogs'
+            'latestBlogs',
+            'chefs'
         ));
+    }
+
+    /**
+     * Display listing of chefs page.
+     */
+    public function chefs(): View
+    {
+        $chefs = Chef::where('status', 1)->paginate(12);
+        return view('frontend.pages.chefs.index', compact('chefs'));
     }
 
     /**

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProductSizeAndOptionController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogPostController;
+use App\Http\Controllers\Admin\ChefController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
@@ -79,4 +80,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->as('admi
     // ------------   Blog Categories & Posts Routes --------------------
     Route::resource('/blog-categories', BlogCategoryController::class);
     Route::resource('/blog-posts', BlogPostController::class);
+
+    // ------------   Chefs Routes --------------------
+    Route::resource('/chefs', ChefController::class);
 });

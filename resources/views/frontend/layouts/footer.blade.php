@@ -28,7 +28,7 @@
                             <li><a href="{{ route('home') }}">Home</a></li>
                             <li><a>About Us</a></li>
                             <li><a>Contact Us</a></li>
-                            <li><a>Chef</a></li>
+                            <li><a href="{{ route('chefs') }}">Chefs</a></li>
                             <li><a href="{{ route('blog') }}">Blog</a></li>
                         </ul>
                     </div>

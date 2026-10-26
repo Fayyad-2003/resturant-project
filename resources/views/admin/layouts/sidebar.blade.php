@@ -70,6 +70,11 @@
                 <i class="fas fa-calendar-check"></i> <span>Table Reservations</span>
             </a>
         </li>
+        <li class="{{ request()->routeIs('admin.chefs.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.chefs.index') }}">
+                <i class="fas fa-user-tie"></i> <span>Our Chefs</span>
+            </a>
+        </li>
         <li>
             <a href="{{ route('admin.coupons.index') }}">
                 <i class="fas fa-tags"></i>

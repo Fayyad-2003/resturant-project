@@ -19,7 +19,7 @@
                     <a class="nav-link Admin User">menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link Admin User">chefs</a>
+                    <a class="nav-link {{ request()->routeIs('chefs*') ? 'active' : '' }}" href="{{ route('chefs') }}">chefs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('blog*') ? 'active' : '' }}" href="{{ route('blog') }}">blog</a>
