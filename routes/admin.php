@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdvertisementController;
+use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
@@ -87,4 +88,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->as('admi
 
     // ------------   Advertisements Routes --------------------
     Route::resource('/advertisements', AdvertisementController::class);
+
+    // ------------   Counters Routes --------------------
+    Route::resource('/counters', CounterController::class);
 });

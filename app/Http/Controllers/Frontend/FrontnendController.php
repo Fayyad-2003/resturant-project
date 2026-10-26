@@ -8,6 +8,7 @@ use App\Models\Advertisement;
 use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Chef;
+use App\Models\Counter;
 use App\Models\Product;
 use App\Models\SectionTitle;
 use App\Models\Slider;
@@ -44,6 +45,7 @@ class FrontnendController extends Controller
             ->take(10)
             ->get();
         $advertisements = Advertisement::where('status', 1)->latest()->get();
+        $counters = Counter::where('status', 1)->take(4)->get();
 
         return view('frontend.pages.home.index', compact(
             'sliders',
@@ -55,7 +57,8 @@ class FrontnendController extends Controller
             'latestBlogs',
             'chefs',
             'dailyOffers',
-            'advertisements'
+            'advertisements',
+            'counters'
         ));
     }
 

@@ -81,8 +81,8 @@
                 <span>Manage Coupons</span>
             </a>
         </li>
-        <li>
-            <a href="#">
+        <li class="{{ request()->routeIs('admin.testimonials.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.testimonials.index') }}">
                 <i class="fas fa-star"></i>
                 <span>Testimonial</span>
             </a>
@@ -91,6 +91,12 @@
             <a href="{{ route('admin.advertisements.index') }}">
                 <i class="fas fa-ad"></i>
                 <span>Advertisement</span>
+            </a>
+        </li>
+        <li class="{{ request()->routeIs('admin.counters.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.counters.index') }}">
+                <i class="fas fa-calculator"></i>
+                <span>Counters & Stats</span>
             </a>
         </li>        <li class="has-dropdown {{ request()->routeIs('admin.blog-*') ? 'active' : '' }}">
             <a href="javascript:void(0);" class="has-dropdown {{ request()->routeIs('admin.blog-*') ? 'active' : '' }}">
