@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\FrontnendController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\ReviewController;
+use App\Http\Controllers\Frontend\StripePaymentController;
 use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +59,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/review/store', [ReviewController::class, 'store'])->name('review.store');
     Route::put('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::put('/profile/password/update', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+    // Stripe Payment routes 
+    Route::controller(StripePaymentController::class)->group(function () {
+        Route::get('/stripe/payment', 'stripe')->name('stripe.payment');
+        Route::post('/stripe/payment', 'stripePost')->name('stripe.post');
+    });
 
 });
 
