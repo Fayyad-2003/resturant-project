@@ -63,7 +63,12 @@
                 <li>
                     <a class="{{ request()->routeIs('admin.orders.canceled') ? 'active' : '' }}" href="{{ route('admin.orders.canceled') }}">Cancelled Orders</a>
                 </li>
-            </ul>
+            </ul>        </li>
+
+        <li class="{{ request()->routeIs('admin.reservations.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.reservations.index') }}">
+                <i class="fas fa-calendar-check"></i> <span>Table Reservations</span>
+            </a>
         </li>
         <li>
             <a href="{{ route('admin.coupons.index') }}">

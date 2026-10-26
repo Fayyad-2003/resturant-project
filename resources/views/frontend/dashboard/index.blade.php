@@ -147,6 +147,10 @@
                                     aria-controls="v-pills-messages" aria-selected="false"><span><i
                                             class="fas fa-star"></i></span> Reviews</button>
 
+                                                                <button class="nav-link" id="v-pills-reservation-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-reservation" type="button" role="tab"
+                                    aria-controls="v-pills-reservation" aria-selected="false"><span><i
+                                            class="fas fa-calendar-check"></i></span> Reservations</button>
                                 <button class="nav-link w-full" id="v-pills-settings-tab" data-bs-toggle="pill"
                                     data-bs-target="#v-pills-settings" type="button" role="tab"
                                     aria-controls="v-pills-settings" aria-selected="false"><span><i
@@ -404,6 +408,48 @@
                                     </div>
                                 </div>
 
+                                                                <div class="tab-pane fade" id="v-pills-reservation" role="tabpanel"
+                                    aria-labelledby="v-pills-reservation-tab">
+                                    <div class="fp_dashboard_body">
+                                        <h3>My Table Reservations</h3>
+                                        <div class="table-responsive mt-4">
+                                            <table class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Date</th>
+                                                        <th>Time Slot</th>
+                                                        <th>Persons</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @forelse ($reservations as $key => $res)
+                                                        <tr>
+                                                            <td>{{ $key + 1 }}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($res->date)->format('d M, Y') }}</td>
+                                                            <td><span class="badge bg-info text-white">{{ $res->time }}</span></td>
+                                                            <td>{{ $res->persons }} Persons</td>
+                                                            <td>
+                                                                @if ($res->status == 'pending')
+                                                                    <span class="badge bg-warning text-dark">Pending</span>
+                                                                @elseif ($res->status == 'approved')
+                                                                    <span class="badge bg-success">Approved</span>
+                                                                @elseif ($res->status == 'canceled')
+                                                                    <span class="badge bg-danger">Canceled</span>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <tr>
+                                                            <td colspan="5" class="text-center py-4 text-muted">You have no table reservations yet.</td>
+                                                        </tr>
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
                                     aria-labelledby="v-pills-settings-tab">
                                     <div class="fp_dashboard_body fp__change_password">

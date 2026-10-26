@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\ProductSizeAndOptionController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
 use Illuminate\Support\Facades\Route;
@@ -64,5 +65,12 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->as('admi
         Route::get('/order/details/{id}', 'viewOrder')->name('order.details');
         Route::get('/order/approve/{id}', 'approveOrder')->name('order.approve');
         Route::get('/order/cancel/{id}', 'cancelOrder')->name('order.cancel');
+    });
+
+    // ------------   Table Reservations Management Routes --------------------
+    Route::controller(ReservationController::class)->group(function () {
+        Route::get('/reservations', 'index')->name('reservations.index');
+        Route::post('/reservations/status/{id}', 'updateStatus')->name('reservations.update-status');
+        Route::delete('/reservations/{id}', 'destroy')->name('reservations.destroy');
     });
 });

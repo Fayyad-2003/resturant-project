@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Reservation;
 use App\Models\Review;
 use App\Models\Wishlist;
 use Illuminate\Contracts\View\View;
@@ -21,6 +22,7 @@ class DashboardController extends Controller
         $canceledOrders = Order::where('user_id', $userId)->where('status', 'canceled')->count();
         $wishlists = Wishlist::with('model')->where('user_id', $userId)->latest()->get();
         $myreviews = Review::with('product')->where('user_id', $userId)->latest()->get();
+        $reservations = Reservation::where('user_id', $userId)->latest()->get();
 
         return view('frontend.dashboard.index', compact(
             'orders',
@@ -28,7 +30,8 @@ class DashboardController extends Controller
             'completedOrders',
             'canceledOrders',
             'wishlists',
-            'myreviews'
+            'myreviews',
+            'reservations'
         ));
     }
 
