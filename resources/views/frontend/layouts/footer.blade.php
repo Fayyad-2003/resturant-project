@@ -25,11 +25,11 @@
                     <div class="fp__footer_content">
                         <h3>Short Link</h3>
                         <ul>
-                            <li><a>Home</a></li>
+                            <li><a href="{{ route('home') }}">Home</a></li>
                             <li><a>About Us</a></li>
                             <li><a>Contact Us</a></li>
                             <li><a>Chef</a></li>
-                            <li><a>blog</a></li>
+                            <li><a href="{{ route('blog') }}">Blog</a></li>
                         </ul>
                     </div>
                 </div>

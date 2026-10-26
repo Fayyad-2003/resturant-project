@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg main_menu">
     <div class="container">
-        <a class="navbar-brand">
+        <a class="navbar-brand" href="{{ route('home') }}">
             <img src="FoodPark" alt="FoodPark" class="img-fluid">
         </a>
         <button class="navbar-toggler" type="button" aria-controls="navbarNav" aria-expanded="false"
@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav m-auto">
                 <li class="nav-item">
-                    <a class="nav-link  Admin User" aria-current="page">Home</a>
+                    <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link Admin User">about</a>
@@ -22,7 +22,7 @@
                     <a class="nav-link Admin User">chefs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link Admin User">blog</a>
+                    <a class="nav-link {{ request()->routeIs('blog*') ? 'active' : '' }}" href="{{ route('blog') }}">blog</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link Admin User">contact</a>

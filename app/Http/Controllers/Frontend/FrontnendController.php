@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\CheckoutRequest;
+use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SectionTitle;
@@ -31,6 +32,7 @@ class FrontnendController extends Controller
         $products = Product::where('status', 1)->with(['category', 'sizes', 'options'])->latest()->take(12)->get();
 
         $wishlists = Wishlist::with('model')->where('user_id', $userId)->latest()->get();
+        $latestBlogs = BlogPost::with(['category', 'user'])->where('status', 1)->latest()->take(3)->get();
 
         return view('frontend.pages.home.index', compact(
             'sliders',
@@ -38,7 +40,8 @@ class FrontnendController extends Controller
             'whyChooseUs',
             'categories',
             'products',
-            'wishlists'
+            'wishlists',
+            'latestBlogs'
         ));
     }
 

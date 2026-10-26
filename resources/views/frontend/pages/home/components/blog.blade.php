@@ -1,4 +1,5 @@
     <!-- BLOG 2 START  -->
+    @if(isset($latestBlogs) && $latestBlogs->count() > 0)
     <section class="fp__blog fp__blog2">
         <div class="fp__blog_overlay pt_95 pt_xs_60 pb_100 xs_pb_70">
             <div class="container">
@@ -15,8 +16,14 @@
                     </div>
                 </div>
                 <div class="row">
+                    @foreach ($latestBlogs as $blog)
+                        <div class="col-xl-4 col-sm-6 col-lg-4 wow fadeInUp mb-4" data-wow-duration="1s">
+                            <x-frontend.blog-card :blog="$blog" />
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </section>
+    @endif
     <!-- BLOG 2 END  -->

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CouponController;
 use App\Http\Controllers\Frontend\DashboardController;
@@ -51,6 +52,13 @@ Route::controller(FrontnendController::class)->group(function () {
 Route::controller(WishlistController::class)->group(function () {
     Route::post('/wishlist/add', 'addWishlist')->name('wishlist.add');
     Route::delete('/wishlist/remove/{id}', 'removeWishlist')->name('wishlist.remove')->middleware('auth');
+});
+
+// Blog all routes
+Route::controller(BlogController::class)->group(function () {
+    Route::get('/blog', 'index')->name('blog');
+    Route::get('/blog/{slug}', 'details')->name('blog.details');
+    Route::post('/blog/{id}/comment', 'commentStore')->name('blog.comment.store')->middleware('auth');
 });
 
 Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
