@@ -87,7 +87,24 @@
                 <i class="fas fa-ad"></i>
                 <span>Advertisement</span>
             </a>
+        </li>        <li class="has-dropdown {{ request()->routeIs('admin.blog-*') ? 'active' : '' }}">
+            <a href="javascript:void(0);" class="has-dropdown {{ request()->routeIs('admin.blog-*') ? 'active' : '' }}">
+                <i class="fas fa-newspaper"></i>
+                <span>Manage Blog</span>
+            </a>
+            <ul class="dropdown-menu {{ request()->routeIs('admin.blog-*') ? 'show' : '' }}">
+                <li>
+                    <a class="{{ request()->routeIs('admin.blog-categories.*') ? 'active' : '' }}" href="{{ route('admin.blog-categories.index') }}">Categories</a>
+                </li>
+                <li>
+                    <a class="{{ request()->routeIs('admin.blog-posts.index') ? 'active' : '' }}" href="{{ route('admin.blog-posts.index') }}">All Articles</a>
+                </li>
+                <li>
+                    <a class="{{ request()->routeIs('admin.blog-posts.create') ? 'active' : '' }}" href="{{ route('admin.blog-posts.create') }}">Create Article</a>
+                </li>
+            </ul>
         </li>
+
 
         <li class="menu-header">Restaurant</li>
         <li>
