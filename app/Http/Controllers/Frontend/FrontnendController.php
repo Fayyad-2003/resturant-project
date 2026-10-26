@@ -214,4 +214,43 @@ class FrontnendController extends Controller
 
         return view('frontend.pages.product-details.index', compact('product', 'relatedProducts', 'reviews'));
     }
+
+    /**
+     * Display shop / food menu catalog page.
+     */
+
+    public function shop(Request $request)
+    {
+        $query = Product::with(['category', 'sizes', 'options', 'reviews'])->where('status', 1);
+        // Filter by Category slug
+
+        if ($request->filled('category')) {
+            $category = Category::where('slug', $request->category)->first();
+            if ($category) {
+                $query->where('category_id', $category->id);
+            }
+        }
+
+        // Search by product name or description
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                    ->orWhere('short_description', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // Sort order
+        if ($request->input('sort') === 'price_asc') {
+            $query->orderBy('price', 'asc');
+        } elseif ($request->input('sort') === 'price_desc') {
+            $query->orderBy('price', 'desc');
+        } else {
+            $query->latest();
+        }
+
+        $products = $query->paginate(12)->withQueryString();
+        $categories = Category::where('status', 1)->get();
+
+        return view('frontend.pages.shop.index', compact('products', 'categories'));
+    }
 }

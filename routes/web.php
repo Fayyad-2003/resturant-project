@@ -18,7 +18,7 @@ Route::get('/product-quick-view/{id?}', [FrontnendController::class, 'productQui
 Route::get('/product/{slug}', [FrontnendController::class, 'productDetails'])->name('product.details');
 Route::get('/chefs', [FrontnendController::class, 'chefs'])->name('chefs');
 Route::get('/about', [FrontnendController::class, 'about'])->name('about');
-
+Route::get('/shop', [FrontnendController::class, 'shop'])->name('shop');
 
 // cart all routes
 Route::controller(CartController::class)->group(function () {

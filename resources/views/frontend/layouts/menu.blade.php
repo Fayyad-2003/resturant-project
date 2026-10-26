@@ -10,19 +10,24 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav m-auto">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
+                    <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}"
+                        href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('about*') ? 'active' : '' }}" href="{{ route('about') }}">about</a>
+                    <a class="nav-link {{ request()->routeIs('about*') ? 'active' : '' }}"
+                        href="{{ route('about') }}">about</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link Admin User">menu</a>
+                    <a class="nav-link {{ request()->routeIs('shop') ? 'active' : '' }}"
+                        href="{{ route('shop') }}">menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('chefs*') ? 'active' : '' }}" href="{{ route('chefs') }}">chefs</a>
+                    <a class="nav-link {{ request()->routeIs('chefs*') ? 'active' : '' }}"
+                        href="{{ route('chefs') }}">chefs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('blog*') ? 'active' : '' }}" href="{{ route('blog') }}">blog</a>
+                    <a class="nav-link {{ request()->routeIs('blog*') ? 'active' : '' }}"
+                        href="{{ route('blog') }}">blog</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link Admin User">contact</a>
