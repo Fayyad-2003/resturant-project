@@ -11,6 +11,7 @@ use App\Models\Chef;
 use App\Models\ContactInfo;
 use App\Models\ContactMessage;
 use App\Models\Counter;
+use App\Models\Platform;
 use App\Models\Product;
 use App\Models\SectionTitle;
 use App\Models\Slider;
@@ -50,6 +51,7 @@ class FrontendController extends Controller
         $advertisements = Advertisement::where('status', 1)->latest()->get();
         $counters = Counter::where('status', 1)->take(4)->get();
         $testimonials = Testimonial::where('status', 1)->latest()->get();
+        $platforms = Platform::where('status', 1)->get();
 
         return view('frontend.pages.home.index', compact(
             'sliders',
@@ -63,7 +65,8 @@ class FrontendController extends Controller
             'dailyOffers',
             'advertisements',
             'counters',
-            'testimonials'
+            'testimonials',
+            'platforms'
         ));
     }
 

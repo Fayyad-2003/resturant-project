@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ContactInfoController;
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PlatformController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\ProductSizeAndOptionController;
@@ -73,14 +74,16 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->as('admi
         Route::get('/order/details/{id}', 'viewOrder')->name('order.details');
         Route::get('/order/approve/{id}', 'approveOrder')->name('order.approve');
         Route::get('/order/cancel/{id}', 'cancelOrder')->name('order.cancel');
-    });
+
+});
 
     // ------------   Table Reservations Management Routes --------------------
     Route::controller(ReservationController::class)->group(function () {
         Route::get('/reservations', 'index')->name('reservations.index');
         Route::post('/reservations/status/{id}', 'updateStatus')->name('reservations.update-status');
         Route::delete('/reservations/{id}', 'destroy')->name('reservations.destroy');
-    });
+
+});
 
     // ------------   Blog Categories & Posts Routes --------------------
     Route::resource('/blog-categories', BlogCategoryController::class);
@@ -104,4 +107,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->as('admi
     Route::get('/contact-messages/{id}', [ContactMessageController::class, 'show'])->name('contact-messages.show');
     Route::delete('/contact-messages/{id}', [ContactMessageController::class, 'destroy'])->name('contact-messages.destroy');
     Route::resource('/contact-info', ContactInfoController::class)->only(['index', 'edit', 'update']);
+    // ------------   Platforms (Download App) Routes --------------------
+    Route::post('/platforms/toggle-status/{id}', [PlatformController::class, 'toggleStatus'])->name('platforms.toggle-status');
+    Route::resource('/platforms', PlatformController::class);
 });

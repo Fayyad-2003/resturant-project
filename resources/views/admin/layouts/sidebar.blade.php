@@ -122,6 +122,12 @@
                 </li>
             </ul>
         </li>
+        <li class="{{ request()->routeIs('admin.platforms.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.platforms.index') }}">
+                <i class="fas fa-mobile-alt"></i>
+                <span>Mobile Platforms</span>
+            </a>
+        </li>
         <li class="has-dropdown {{ request()->routeIs('admin.blog-*') ? 'active' : '' }}">
             <a href="javascript:void(0);" class="has-dropdown {{ request()->routeIs('admin.blog-*') ? 'active' : '' }}">
                 <i class="fas fa-newspaper"></i>
