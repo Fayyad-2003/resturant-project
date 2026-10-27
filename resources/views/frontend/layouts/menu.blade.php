@@ -30,7 +30,7 @@
                         href="{{ route('blog') }}">blog</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link Admin User">contact</a>
+                    <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">contact</a>
                 </li>
             </ul>
             <ul class="menu_icon d-flex flex-wrap">

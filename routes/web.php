@@ -4,7 +4,7 @@ use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CouponController;
 use App\Http\Controllers\Frontend\DashboardController;
-use App\Http\Controllers\Frontend\FrontnendController;
+use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\ReservationController;
 use App\Http\Controllers\Frontend\ReviewController;
@@ -13,12 +13,14 @@ use App\Http\Controllers\Frontend\StripePaymentController;
 use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [FrontnendController::class, 'index'])->name('home');
-Route::get('/product-quick-view/{id?}', [FrontnendController::class, 'productQuickView'])->name('product-quick-view');
-Route::get('/product/{slug}', [FrontnendController::class, 'productDetails'])->name('product.details');
-Route::get('/chefs', [FrontnendController::class, 'chefs'])->name('chefs');
-Route::get('/about', [FrontnendController::class, 'about'])->name('about');
-Route::get('/shop', [FrontnendController::class, 'shop'])->name('shop');
+Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('/product-quick-view/{id?}', [FrontendController::class, 'productQuickView'])->name('product-quick-view');
+Route::get('/product/{slug}', [FrontendController::class, 'productDetails'])->name('product.details');
+Route::get('/chefs', [FrontendController::class, 'chefs'])->name('chefs');
+Route::get('/about', [FrontendController::class, 'about'])->name('about');
+Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
+Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
+Route::post('/contact-message', [FrontendController::class, 'handleContactForm'])->name('contact.message.send');
 
 // cart all routes
 Route::controller(CartController::class)->group(function () {
@@ -42,7 +44,7 @@ Route::controller(CouponController::class)->group(function () {
 
 
 // Checkout all routes
-Route::controller(FrontnendController::class)->group(function () {
+Route::controller(FrontendController::class)->group(function () {
     Route::get('/checkout', 'checkout')->name('checkout')->middleware('auth');
     Route::get('/checkout/content', 'checkoutcontent')->name('checkout.content');
     Route::get('/checkout/store', 'checkoutstore')->name('checkout.store')->middleware('auth');

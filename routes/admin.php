@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\AdvertisementController;
 use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ContactInfoController;
+use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
@@ -96,4 +98,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->as('admi
     // ------------   Testimonials Routes --------------------
     Route::post('/testimonials/toggle-status/{id}', [TestimonialController::class, 'toggleStatus'])->name('testimonials.toggle-status');
     Route::resource('/testimonials', TestimonialController::class);
+
+    // ------------   Contact Messages & Info Routes --------------------
+    Route::get('/contact-messages', [ContactMessageController::class, 'index'])->name('contact-messages.index');
+    Route::get('/contact-messages/{id}', [ContactMessageController::class, 'show'])->name('contact-messages.show');
+    Route::delete('/contact-messages/{id}', [ContactMessageController::class, 'destroy'])->name('contact-messages.destroy');
+    Route::resource('/contact-info', ContactInfoController::class)->only(['index', 'edit', 'update']);
 });

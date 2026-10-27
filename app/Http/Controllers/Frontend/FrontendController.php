@@ -8,6 +8,8 @@ use App\Models\Advertisement;
 use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Chef;
+use App\Models\ContactInfo;
+use App\Models\ContactMessage;
 use App\Models\Counter;
 use App\Models\Product;
 use App\Models\SectionTitle;
@@ -24,7 +26,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
-class FrontnendController extends Controller
+class FrontendController extends Controller
 {
     public function index(): View
     {
@@ -252,5 +254,43 @@ class FrontnendController extends Controller
         $categories = Category::where('status', 1)->get();
 
         return view('frontend.pages.shop.index', compact('products', 'categories'));
+    }
+
+    /**
+     * Contact Us page
+     */
+    public function contact(): View
+    {
+        $contactInfos = ContactInfo::where('status', 1)->get();
+        return view('frontend.pages.contact.index', compact('contactInfos'));
+    }
+
+    /**
+     * Submit contact form message
+     */
+    public function handleContactForm(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:50'],
+            'subject' => ['required', 'string', 'max:255'],
+            'message' => ['required', 'string', 'max:2000'],
+        ]);
+
+        ContactMessage::create([
+            'user_id' => Auth::id(),
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'subject' => $request->subject,
+            'message' => $request->message,
+            'is_read' => false,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Thank you! Your message has been sent successfully. We will get back to you shortly.',
+        ]);
     }
 }

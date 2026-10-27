@@ -106,6 +106,22 @@
                 <span>Counters & Stats</span>
             </a>
         </li>
+        <li class="has-dropdown {{ request()->routeIs('admin.contact-*') ? 'active' : '' }}">
+            <a href="javascript:void(0);" class="has-dropdown {{ request()->routeIs('admin.contact-*') ? 'active' : '' }}">
+                <i class="fas fa-envelope-open-text"></i>
+                <span>Contact Us</span>
+            </a>
+            <ul class="dropdown-menu {{ request()->routeIs('admin.contact-*') ? 'show' : '' }}">
+                <li>
+                    <a class="{{ request()->routeIs('admin.contact-messages.*') ? 'active' : '' }}"
+                        href="{{ route('admin.contact-messages.index') }}">Messages Inbox</a>
+                </li>
+                <li>
+                    <a class="{{ request()->routeIs('admin.contact-info.*') ? 'active' : '' }}"
+                        href="{{ route('admin.contact-info.index') }}">Contact Info Cards</a>
+                </li>
+            </ul>
+        </li>
         <li class="has-dropdown {{ request()->routeIs('admin.blog-*') ? 'active' : '' }}">
             <a href="javascript:void(0);" class="has-dropdown {{ request()->routeIs('admin.blog-*') ? 'active' : '' }}">
                 <i class="fas fa-newspaper"></i>
